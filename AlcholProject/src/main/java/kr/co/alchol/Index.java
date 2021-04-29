@@ -3,6 +3,8 @@ package kr.co.alchol;
 public class Index {
 	public static void main(String[] args) {
 		System.out.println("Hello world!");
+		
 
+		System.out.println("¼öÁ¤1");
 	}
 }

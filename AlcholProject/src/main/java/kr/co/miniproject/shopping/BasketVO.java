@@ -14,6 +14,11 @@ public class BasketVO {
 		this.cnt_number = cnt_number;
 	}
 
+	public BasketVO(String id_email) {
+		super();
+		this.id_email = id_email;
+	}
+
 	public int getBasket_num() {
 		return basket_num;
 	}
@@ -48,8 +53,9 @@ public class BasketVO {
 
 	@Override
 	public String toString() {
-		return id_email + "님의 장바구니 목록"+ basket_num +"\n상품정보"+al_id +"수량: "+cnt_number;
-	}
+		return basket_num +"\n상품: "+al_id +", 수량: "+cnt_number;
+	}//BasketDAO에 상품내용 가져오면 toString내용 다시 한 번 정리할 것.
+	
 	
 	
 	

@@ -13,19 +13,18 @@ public class JDBC_Connect {
 
 		try {
 			Class.forName(DRIVER);
-			System.out.println("Oracle 드라이버 로딩 성공.");
+//			System.out.println("Oracle 드라이버 로딩 성공.");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
 		try {
 			conn = DriverManager.getConnection(URL, USER, PASSWORD);
-			System.out.println("Connection 생성 성공");
+//			System.out.println("Connection 생성 성공");
 		} catch (Exception e) {
-			System.out.println("jdbc driver 로딩 실패");
+//			System.out.println("jdbc driver 로딩 실패");
 			e.printStackTrace();
 		}
-		System.out.println(conn);
 		return conn;
 	}
 }

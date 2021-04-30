@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import common.util.JDBC_Close;
 import common.util.JDBC_Connect;
+import common.util.JDBC_SQL;
+
 public class MemberDAO {
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
@@ -20,12 +22,9 @@ public class MemberDAO {
 		try {
 			// DB 연결 - Connection 객체 생성(DB와 연결된)
 			// SQL문 실행
-			StringBuilder sb = new StringBuilder();
-			sb.append("INSERT INTO MEMBERS ");
-			sb.append(" (ID_EMAIL, PWD, NAME, BIRTH, PHONE)");
-			sb.append(" VALUES (?, ?, ?, ?, ?) ");
-			pstmt = conn.prepareStatement(sb.toString());
-			System.out.println(sb.toString());
+			String sql = JDBC_SQL.signUp();
+			pstmt = conn.prepareStatement(sql);
+			System.out.println(sql);
 			// ? 바인드변수에 값 설정
 			pstmt.setString(1, member.getId_email());
 			pstmt.setString(2,member.getPwd());
@@ -43,3 +42,5 @@ public class MemberDAO {
 		return result;
 	}
 }
+
+

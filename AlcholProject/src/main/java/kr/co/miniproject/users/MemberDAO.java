@@ -13,6 +13,7 @@ import common.util.JDBC_SQL;
 public class MemberDAO {
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
+	ResultSet rs = null;
 
 	public int insertOne(MemberVO member) {
 		int result = 0;
@@ -43,7 +44,6 @@ public class MemberDAO {
 	}
 
 	public MemberVO selectOne(String email, String pwd) {
-		ResultSet rs = null;
 		conn = JDBC_Connect.getConnection();
 
 		String sql = JDBC_SQL.login_Email();
@@ -61,17 +61,19 @@ public class MemberDAO {
 					String phone = rs.getString("phone");
 					MemberVO mvo = new MemberVO(email, pwd, name, birth, phone);
 					return mvo;
-				} 
+				}
 //				else {
 //					System.out.println("==================================");
 //					System.out.println("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
 //				}
-			} 
+			}
 //			else {
 //				System.out.println("아이디와 비밀번호를 다시 확인해주세요.");
 //			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			JDBC_Close.closeConnStmtRs(conn, pstmt, rs);
 		}
 
 		return null;

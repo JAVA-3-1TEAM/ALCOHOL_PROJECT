@@ -34,10 +34,7 @@ public class AlcoholTest {
 				System.out.println(vo);
 			}
 			
-		}else {
-			System.out.println("다 나가주세요......혼자있을래요..........");
 		}
-		
 		
 	}
 

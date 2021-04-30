@@ -48,7 +48,7 @@ public class BasketVO {
 
 	@Override
 	public String toString() {
-		return id_email + "님의 장바구니 목록"+ basket_num +"\n상품정보"+al_id +"수량: "+cnt_number;
+		return id_email + "님의 장바구니의 아이템"+ basket_num +"\n상품: "+al_id +"수량: "+cnt_number;
 	}
 	
 	

@@ -18,9 +18,10 @@ public class MenuScreen {
 	}
 	
 	public void loginFail() {
-		System.out.println("==================================");
-		System.out.println("아이디와 패스워드가 일치하지 않습니다.");
+		System.out.println("=========================================");
+		System.out.println("로그인에 실패했습니다. 아이디 비밀번호를 확인해주세요.");
 		System.out.println("회원이 아니시라면 회원가입을 해주세요.");
-		System.out.println("==================================");
+		System.out.println("메뉴로 이동합니다.");
+		System.out.println("=========================================");
 	}
 }

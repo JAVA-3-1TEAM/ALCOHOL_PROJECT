@@ -34,6 +34,7 @@ public class AlcoholMain {
 					} else {
 						// 로그인 성공.
 						menu.loginSuccess(loginMember);
+						
 					}
 					
 				} catch (IOException e) {

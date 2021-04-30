@@ -19,19 +19,24 @@ public class BasketDAO {
 		
 		try {
 			conn = JDBC_Connect.getConnection();
+			
 			StringBuilder sb = new StringBuilder();
 			
-			sb.append("SELECT*FROM ID_EMAIL, BASKET_NUM, AL_ID, CNT_NUMBER ");
+			sb.append("SELECT ID_EMAIL, BASKET_NUM, AL_ID, CNT_NUMBER ");
 			sb.append("FROM BASKET");
 			
 			pstmt = conn.prepareStatement(sb.toString());
-			
 			rs = pstmt.executeQuery();
 			
 			bList = new ArrayList<BasketVO>();
 			while(rs.next()) {
-				BasketVO bvo = new BasketVO(rs.getInt("BAKSET_NUM"), rs.getString("ID_EMAIL"), 
-						rs.getInt("AL_ID"), rs.getInt("CNT_NUMBER"));
+				BasketVO bvo = new BasketVO(
+						rs.getInt("BASKET_NUM"), 
+						rs.getString("ID_EMAIL"), 
+						rs.getInt("AL_ID"), 
+						rs.getInt("CNT_NUMBER"));
+				
+				bList.add(bvo);
 			}
 			
 		} catch (Exception e) {

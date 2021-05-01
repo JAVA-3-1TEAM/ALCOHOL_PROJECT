@@ -8,6 +8,7 @@ import java.util.List;
 
 import common.util.JDBC_Close;
 import common.util.JDBC_Connect;
+import common.util.JDBC_SQL;
 
 public class AlcoholDAO {
 	
@@ -17,18 +18,14 @@ public class AlcoholDAO {
 	
 	public List<AlcoholVO> selectAl(String al_type) {
 		List<AlcoholVO> list = null;
-		
-		try {
-			conn = JDBC_Connect.getConnection();
-			StringBuilder sb = new StringBuilder();
-			
-			sb.append("SELECT AL_ID, AL_NAME, AL_TYPE, AL_PRICE ");
-			sb.append("FROM ALCOHOL ");
-			sb.append("WHERE AL_TYPE = ? ");
-			pstmt = conn.prepareStatement(sb.toString());
+		conn = JDBC_Connect.getConnection();
 
+		try {
+			String sql = JDBC_SQL.show_alList();
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, al_type);
 			rs = pstmt.executeQuery();
+			
 			list = new ArrayList<AlcoholVO>();
 
 			while(rs.next()) {

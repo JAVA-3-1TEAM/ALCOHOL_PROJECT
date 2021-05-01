@@ -8,6 +8,7 @@ import java.util.List;
 
 import common.util.JDBC_Close;
 import common.util.JDBC_Connect;
+import common.util.JDBC_SQL;
 
 public class BasketDAO {
 	private Connection conn = null;
@@ -21,12 +22,8 @@ public class BasketDAO {
 		try {
 			conn = JDBC_Connect.getConnection();
 			
-			StringBuilder sb = new StringBuilder();
-			
-			sb.append("SELECT ID_EMAIL, BASKET_NUM, AL_ID, CNT_NUMBER ");
-			sb.append("FROM BASKET");
-			
-			pstmt = conn.prepareStatement(sb.toString());
+			String sql = JDBC_SQL.show_basket();			
+			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			bList = new ArrayList<BasketVO>();

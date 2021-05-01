@@ -1,5 +1,5 @@
 package kr.co.miniproject.mypage;
 
-public class MypageDAO {
-
+public class OrderlistDAO {
+	
 }

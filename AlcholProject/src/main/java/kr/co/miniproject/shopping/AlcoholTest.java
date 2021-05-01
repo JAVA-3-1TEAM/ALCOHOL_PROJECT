@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class AlcoholTest {
 public static Scanner scanner = new Scanner(System.in);
 
+	/*메인으로 테스트한 버전
 	public static void main(String[] args) {
 		AlcoholDAO dao = new AlcoholDAO();
 		
@@ -37,7 +38,7 @@ public static Scanner scanner = new Scanner(System.in);
 			
 		}
 		
-	}
+	}*/
 	
 	public void sAlcohol() {
 		AlcoholDAO dao = new AlcoholDAO();

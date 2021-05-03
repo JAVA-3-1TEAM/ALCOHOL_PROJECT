@@ -31,4 +31,10 @@ public class MenuScreen {
 		System.out.println("== 1. 주문 내역   2. 문의 내역   3. 종료 ==");
 		System.out.println("=========================================");
 	}
+	
+	public void orderDeleteMessage() {
+		System.out.println("=========================================");
+		System.out.println("== 1. 주문 취소   2. 주문 내역 3. 종료 ==");
+		System.out.println("=========================================");
+	}
 }

@@ -1,7 +1,6 @@
 package kr.co.miniproject.orders;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +22,7 @@ public class OrdersDAO {
 		// 토탈금액까지 넘겨줘서 보여줘야하는데 어떻게? 따로 토탈 메소드 빼서 계산하기? -->아래 print 메서드로 추가.
 		// 장바구니에 중복된 데이터 추가하면 어떻게 처리? -> 탐색해서 같은 고유값을 가진 술이 있으면 더하거나 빼주기.
 		try {
-			String sql = JDBC_SQL.userOrder_Email();
+			String sql = JDBC_SQL.userOrderList_Email();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, idEmail);
 			rs = pstmt.executeQuery();
@@ -52,7 +51,7 @@ public class OrdersDAO {
 
 	public void printOrderList(String idEmail, List<OrdersVO> orderList) {
 		conn = JDBC_Connect.getConnection();
-		String sql = JDBC_SQL.totalPrice_Email();
+		String sql = JDBC_SQL.orderTotalPrice_Email();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, idEmail);
@@ -61,9 +60,14 @@ public class OrdersDAO {
 			if (rs.next()) {
 				totalPrice = rs.getInt("TOTAL_PRICE");
 			}
+			String id = orderList.get(0).getIdEmail();
+			String name = orderList.get(0).getName();
+			System.out.println(name + "님(" + id + ")의 장바구니 목록입니다.\n");
 			for (OrdersVO o : orderList) {
+				System.out.println("=============================");
 				System.out.println(o);
 			}
+			System.out.println("=============================");
 			System.out.println("총 금액 : " + totalPrice);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -71,5 +75,21 @@ public class OrdersDAO {
 			JDBC_Close.closeConnStmtRs(conn, pstmt, rs);
 		}
 
+	}
+
+	public void orderDelete(String idEmail, int orderNum) {
+		conn = JDBC_Connect.getConnection();
+		String sql = JDBC_SQL.deleteOrderList_Email_OrderNum();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, idEmail);
+			pstmt.setInt(2, orderNum);
+			rs = pstmt.executeQuery();
+			System.out.println("장바구니에서 취소되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBC_Close.closeConnStmtRs(conn, pstmt, rs);
+		}
 	}
 }

@@ -84,6 +84,16 @@ public class JDBC_SQL {
 		
 	}
 	
+	// 사용자가 작성한 댓글 보여주기.
+	public static String showComment_Email() {
+		return "SELECT COM_NUM, CONTENT,TO_CHAR(COM_DATE,'YY-MM-DD') AS COM_DATE, "
+				+ "ID_EMAIL, REQ_NUM FROM COMMENTS WHERE ID_EMAIL=?";
+	}
+	public static String deleteReqList() {
+		return "delete reqboard "
+				+ "where ID_EMAIL=? and REQ_NUM = ?";
+	}
+	
 	public static String write_req() {
 		return "INSERT INTO REQBOARD(REQ_NUM, TITLE, CONTENT, ID_EMAIL) "
 				+ "VALUES(SEQ_REQ.NEXTVAL, ?, ?, ?)";

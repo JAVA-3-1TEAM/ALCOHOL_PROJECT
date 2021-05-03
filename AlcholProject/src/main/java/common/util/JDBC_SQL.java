@@ -76,7 +76,7 @@ public class JDBC_SQL {
 	// myPage 
 	
 	// 사용자가 작성한 글 목록 보여주기.
-	public static String showReqList() {
+	public static String showMyReqList() {
 		return "SELECT REQ_NUM, TITLE, CONTENT, TO_CHAR(W_DATE,'YY-MM-DD') AS W_DATE, M.NAME\n"
 				+ "FROM REQBOARD R INNER JOIN MEMBERS M\n"
 				+ "    on R.ID_EMAIL = M.ID_EMAIL\n"
@@ -98,4 +98,14 @@ public class JDBC_SQL {
 		return "INSERT INTO BASKET (BASKET_NUM, ID_EMAIL, AL_ID, CNT_NUMBER) "
 				+ "VALUES (SEQ_BASK.nextval, ?, ?, ?)"; 
 	}
+	
+	public static String writeComment() {
+		return "INSERT INTO COMMENTS(COM_NUM, CONTENT, COM_DATE, ID_EMAIL, REQ_NUM) "
+				+"VALUES(SEQ_COM.nextval, ?, SYSDATE, ?, ?)";
+	}
+	
+	public static String showAllReq() {
+		return "SELECT * FROM REQBOARD ORDER BY W_DATE DESC";
+	}
+	
 }

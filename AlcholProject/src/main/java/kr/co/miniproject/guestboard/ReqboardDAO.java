@@ -2,11 +2,15 @@ package kr.co.miniproject.guestboard;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import common.util.JDBC_Close;
 import common.util.JDBC_Connect;
 import common.util.JDBC_SQL;
+import kr.co.miniproject.shopping.AlcoholVO;
 
 public class ReqboardDAO {
 	
@@ -14,7 +18,7 @@ public class ReqboardDAO {
 	private PreparedStatement pstmt = null;
 	Scanner scanner = new Scanner(System.in);
 	
-	public int insertOne(ReqboardVO reqVO) {
+	public int insertReq(ReqboardVO reqVO) {
 		int result = 0;
 		try {
 		
@@ -33,14 +37,44 @@ public class ReqboardDAO {
 			if(result != 0) {
 				System.out.println("게시글이 등록되었습니다.");
 			}
-
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			JDBC_Close.closeConnStmt(conn, pstmt);
 		}
 		return -1; //db오류시 다시 돌아가기
+	}
+	
+	
+	//글 전체 리스트 보여주는거
+	//선택지 만들고
+	//req넘버 선택했을 때 댓글 
+	public List<ReqboardVO> selectAllReq(){
+		List<ReqboardVO> reqVOlist = null;
+		ResultSet rs = null;
+		conn = JDBC_Connect.getConnection();
+
+		try {
+			String sql = JDBC_SQL.showAllReq();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();			
+			reqVOlist = new ArrayList<ReqboardVO>();			
+			while(rs.next()) {
+				ReqboardVO reqvo = new ReqboardVO(rs.getInt("REQ_NUM"),
+						rs.getString("TITLE"),
+						rs.getString("CONTENT"),
+						rs.getString("W_DATE"),
+						rs.getString("ID_EMAIL"));				
+				reqVOlist.add(reqvo);
+			}				
+			
+		} catch (Exception e) {
+			e.printStackTrace();			
+		}finally {
+			JDBC_Close.closeConnStmt(conn, pstmt);
+		}		 
+		
+		return reqVOlist;
 	}
 	
 }

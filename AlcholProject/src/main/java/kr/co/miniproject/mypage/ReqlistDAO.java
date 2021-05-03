@@ -22,7 +22,7 @@ public class ReqlistDAO {
 		conn = JDBC_Connect.getConnection();
 
 		try {
-			String sql = JDBC_SQL.showReqList();
+			String sql = JDBC_SQL.showMyReqList();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, idEmail);
 			rs = pstmt.executeQuery();

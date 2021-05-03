@@ -10,8 +10,7 @@ import java.util.List;
 import common.util.JDBC_Close;
 import common.util.JDBC_Connect;
 import common.util.JDBC_SQL;
-import kr.co.miniproject.orders.OrdersVO;
-import oracle.net.aso.b;
+
 
 public class BasketDAO {
 	private Connection conn = null;
@@ -22,25 +21,21 @@ public class BasketDAO {
 	public List<BasketVO> basketList(String idEmail) {
 		List<BasketVO> basketList = new ArrayList<BasketVO>();
 		conn = JDBC_Connect.getConnection();
-		// 토탈금액까지 넘겨줘서 보여줘야하는데 어떻게? 따로 토탈 메소드 빼서 계산하기? -->아래 print 메서드로 추가.
 		// 장바구니에 중복된 데이터 추가하면 어떻게 처리? -> 탐색해서 같은 고유값을 가진 술이 있으면 더하거나 빼주기.
 		try {
-			String sql = JDBC_SQL.userOrder_Email();
+			String sql = JDBC_SQL.userBasketList_Email();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, idEmail);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				String orderNum = rs.getString("ORDER_NUM");
+				String basketNum = rs.getString("BASKET_NUM");
+				String idEamil = rs.getString("ID_EMAIL");
 				String name = rs.getString("NAME");
-				String phone = rs.getString("PHONE");
-				String address = rs.getString("Address");
 				String alName = rs.getString("AL_NAME");
-				String cntNumber = rs.getString("CNT_NUMBER");
-				int price = rs.getInt("가격");
-				String orgDate = rs.getString("ORGDATE");
+				int cntNumber = rs.getInt("CNT_NUMBER");
+				int price = rs.getInt("PRICE");
 
-				BasketVO basketVO = new BasketVO(orderNum, idEmail, name, phone, address, alName, cntNumber, price,
-						orgDate);
+				BasketVO basketVO = new BasketVO(basketNum, idEmail, name, alName, cntNumber, price);
 				basketList.add(basketVO);
 			}
 
@@ -54,7 +49,7 @@ public class BasketDAO {
 
 	public void printOrderList(String idEmail, List<BasketVO> basketList) {
 		conn = JDBC_Connect.getConnection();
-		String sql = JDBC_SQL.totalPrice_Email();
+		String sql = JDBC_SQL.basketTotalPrice_Email();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, idEmail);

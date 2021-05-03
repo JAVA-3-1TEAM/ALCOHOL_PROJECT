@@ -10,7 +10,7 @@ public class JDBC_SQL {
 	}
 	
 	// 특정 사용자에 대한 주문내역 보여주기.
-	public static String userOrder_Email() {
+	public static String userOrderList_Email() {
 		return "SELECT O.ORDER_NUM AS ORDER_NUM,M.ID_EMAIL, M.NAME, M.PHONE,  O.ADDRESS, "
 				+ "A2.AL_NAME, B.CNT_NUMBER, B.CNT_NUMBER * A2.AL_PRICE AS \"가격\", "
 				+ "TO_CHAR(O.ORGDATE,'MM-DD') AS ORGDATE\n"
@@ -22,7 +22,8 @@ public class JDBC_SQL {
 				+ "WHERE M.ID_EMAIL = ?";
 	}
 	
-	public static String totalPrice_Email() {
+	// 주문테이블 토탈금액
+	public static String orderTotalPrice_Email() {
 		return "SELECT sum(TOTAL) AS TOTAL_PRICE\n"
 				+ "FROM (SELECT  B.CNT_NUMBER * A2.AL_PRICE AS TOTAL\n"
 				+ "FROM MEMBERS M INNER JOIN BASKET B\n"
@@ -31,6 +32,31 @@ public class JDBC_SQL {
 				+ "INNER JOIN ORDERS O\n"
 				+ "    on B.BASKET_NUM = O.BASKET_NUM\n"
 				+ "WHERE M.ID_EMAIL = ?)";
+	}
+	
+	// 주문목록 삭제
+	public static String deleteOrderList_Email_OrderNum() {
+		return "DELETE ORDERS WHERE ID_EMAIL = ? AND ORDER_NUM = ?";
+	}
+	// 장바구니 리스트
+	public static String userBasketList_Email() {
+		return "select B.BASKET_NUM, B.ID_EMAIL, M.NAME, A2.AL_NAME,B.CNT_NUMBER, B.CNT_NUMBER * A2.AL_PRICE AS PRICE\n"
+				+ "from BASKET B INNER JOIN ALCOHOL A2\n"
+				+ "    on B.AL_ID = A2.AL_ID\n"
+				+ "INNER JOIN MEMBERS M\n"
+				+ "    on B.ID_EMAIL = M.ID_EMAIL\n"
+				+ "WHERE M.ID_EMAIL = ?";
+	}
+	
+	// 장바구니 테이블 토탈금액
+	public static String basketTotalPrice_Email() {
+		return "SELECT SUM(TOTAL) AS TOTAL_PRICE\n"
+				+ "FROM (select B.CNT_NUMBER * A2.AL_PRICE AS TOTAL\n"
+				+ "from BASKET B INNER JOIN ALCOHOL A2\n"
+				+ "    on B.AL_ID = A2.AL_ID\n"
+				+ "INNER JOIN MEMBERS M\n"
+				+ "    on B.ID_EMAIL = M.ID_EMAIL\n"
+				+ "    WHERE M.ID_EMAIL = ?)";
 	}
 	
 	public static String show_alList() {
@@ -51,4 +77,5 @@ public class JDBC_SQL {
 		return "INSERT INTO REQBOARD(REQ_NUM, TITLE, CONTENT, ID_EMAIL) "
 				+ "VALUES(SEQ_REQ.NEXTVAL, ?, ?, ?)";
 	}
+	
 }

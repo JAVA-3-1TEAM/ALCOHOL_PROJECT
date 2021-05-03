@@ -1,13 +1,21 @@
 package kr.co.miniproject.guestboard;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 public class CommentVO {
-	int comNum; // 코멘트 글 고유 번호
-	int reqNum; // ReqBoard테이블에서 foriegn key로 가져올 리퀘스트 번호
-	String content; // 코멘트 내용
-	String comDate; // 답글 단 날
-	String idEmail; // 글쓴이 아이디
+	int comNum; //코멘트 글 고유 번호
+	int reqNum; //ReqBoard테이블에서 foriegn key로 가져올 리퀘스트 번호
+	String content; //코멘트 내용
+	String comDate; //답글 단 날
+	String idEmail; //글쓴이 아이디
+	
+	public CommentVO(int comNum, String content, String idEmail) {
+		super();
+		this.comNum = comNum;
+		this.content = content;
+		this.idEmail = idEmail;
+	}
 
 	public CommentVO(int comNum, int reqNum, String content, String comDate, String idEmail) {
 		super();
@@ -62,5 +70,6 @@ public class CommentVO {
 	public String toString() {
 		return "내용 : " + content + " \n" + "작성시간 : " + comDate + "\n" + "작성자 : " + idEmail;
 	}
+
 
 }

@@ -12,5 +12,12 @@ public class ReqOrderMainTest {
 //		int userChoice = scanner.nextInt();
 		String idEmail = "test1";
 		List<ReqlistVO> reqList = rdao.myRequestList(idEmail);
+//		rdao.myRequestDelete(idEmail, 1);
+//		rdao.myRequestList(idEmail);
+		rdao.myCommentsList(idEmail);
+		rdao.myCommentDelete(idEmail,3);
+		rdao.myCommentsList(idEmail);
+
+		
 	}
 }

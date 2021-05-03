@@ -5,14 +5,18 @@ import java.util.Scanner;
 
 import kr.co.miniproject.menu.MenuScreen;
 import kr.co.miniproject.orders.OrdersMain;
+import kr.co.miniproject.shopping.AlcoholMain;
+import kr.co.miniproject.shopping.BasketMain;
 import kr.co.miniproject.users.MemberMain;
 import kr.co.miniproject.users.MemberVO;
 import kr.co.miniproject.orders.OrdersMain;
 
-public class AlcoholMain {
+public class MainPage {
 	public static void main(String[] args) {
-		MemberMain members = new MemberMain();
-		OrdersMain orders = new OrdersMain();
+		MemberMain membersMain = new MemberMain();
+		OrdersMain ordersMain = new OrdersMain();
+		AlcoholMain alcoholMain = new AlcoholMain();
+		BasketMain basketMain = new BasketMain();
 		MenuScreen menu = new MenuScreen();
 		Scanner scanner = new Scanner(System.in);
 
@@ -22,7 +26,7 @@ public class AlcoholMain {
 			// 회원가입 페이지로 이동 -> MemberMain.signUp()
 			if (select == 1) {
 				try {
-					members.signUp();
+					membersMain.signUp();
 				} catch (IOException e) {
 					System.out.println("회원가입중 오류가 발생하였습니다. 다시 실행해주세요.");
 					System.out.println("문제가 지속적으로 발생하면 고객센터에 문의해주세요.");
@@ -30,7 +34,7 @@ public class AlcoholMain {
 				}
 			} else if (select == 2) {
 				try {
-					MemberVO loginMember = members.login();
+					MemberVO loginMember = membersMain.login();
 					if (loginMember == null) {
 						// 로그인 실패.
 						menu.loginFail();
@@ -41,10 +45,12 @@ public class AlcoholMain {
 							int selectBasket = scanner.nextInt();
 							switch (selectBasket) {
 							case 1:
+								// 주류목록 확인 -> alcoholMain,DAO
+								alcoholMain.alcohol(loginMember.getId_email());
 								break;
 							case 2:
-								System.out.println("order");
-								orders.order(loginMember.getId_email());
+								// 장바구니 확인 -> basketMain, DAO
+								basketMain.basket(loginMember.getId_email());
 								break;
 							case 3:
 								while(true) {
@@ -52,7 +58,7 @@ public class AlcoholMain {
 									int selectMypage = scanner.nextInt();
 									if(selectMypage == 1) {
 										System.out.println("주문내역 확인");
-										orders.order(loginMember.getId_email());
+										ordersMain.order(loginMember.getId_email());
 									} else if (selectMypage == 2) {
 										System.out.println("문의사항 게시");
 									} else if(selectMypage == 3) {

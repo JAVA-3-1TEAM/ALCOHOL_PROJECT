@@ -19,8 +19,6 @@ public class OrdersDAO {
 	public List<OrdersVO> orderList(String idEmail) {
 		List<OrdersVO> orderList = new ArrayList<OrdersVO>();
 		conn = JDBC_Connect.getConnection();
-		// 토탈금액까지 넘겨줘서 보여줘야하는데 어떻게? 따로 토탈 메소드 빼서 계산하기? -->아래 print 메서드로 추가.
-		// 장바구니에 중복된 데이터 추가하면 어떻게 처리? -> 탐색해서 같은 고유값을 가진 술이 있으면 더하거나 빼주기.
 		try {
 			String sql = JDBC_SQL.userOrderList_Email();
 			pstmt = conn.prepareStatement(sql);

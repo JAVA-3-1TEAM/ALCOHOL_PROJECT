@@ -1,5 +1,6 @@
 package kr.co.miniproject.guestboard;
 
+
 import java.sql.Date;
 
 public class CommentVO {
@@ -15,6 +16,7 @@ public class CommentVO {
 		this.content = content;
 		this.idEmail = idEmail;
 	}
+
 	public CommentVO(int comNum, int reqNum, String content, String comDate, String idEmail) {
 		super();
 		this.comNum = comNum;
@@ -23,45 +25,51 @@ public class CommentVO {
 		this.comDate = comDate;
 		this.idEmail = idEmail;
 	}
-	
-	
-	public CommentVO(int reqNum) {
-		super();
-		this.reqNum = reqNum;
-	}
+
 	public int getComNum() {
 		return comNum;
 	}
+
 	public void setComNum(int comNum) {
 		this.comNum = comNum;
 	}
+
 	public int getReqNum() {
 		return reqNum;
 	}
+
 	public void setReqNum(int reqNum) {
 		this.reqNum = reqNum;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public String getComDate() {
 		return comDate;
 	}
+
 	public void setComDate(String comDate) {
 		this.comDate = comDate;
 	}
+
 	public String getIdEmail() {
 		return idEmail;
 	}
+
 	public void setIdEmail(String idEmail) {
 		this.idEmail = idEmail;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "내용 : " + content + " \n" + "작성시간 : " + comDate + "\n" + "작성자 : " + idEmail;
+	}
 
 
 }

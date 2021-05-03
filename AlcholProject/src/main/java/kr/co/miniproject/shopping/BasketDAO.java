@@ -28,7 +28,7 @@ public class BasketDAO {
 			pstmt.setString(1, idEmail);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				String basketNum = rs.getString("BASKET_NUM");
+				int basketNum = rs.getInt("BASKET_NUM");
 				String idEamil = rs.getString("ID_EMAIL");
 				String name = rs.getString("NAME");
 				String alName = rs.getString("AL_NAME");
@@ -48,10 +48,10 @@ public class BasketDAO {
 	}
 
 
-	public void printOrderList(String idEmail, List<BasketVO> basketList) {
+	public List<Integer> printOrderList(String idEmail, List<BasketVO> basketList) {
 		conn = JDBC_Connect.getConnection();
 		String sql = JDBC_SQL.basketTotalPrice_Email();
-
+		List<Integer> basketNum = new ArrayList<Integer>();
     try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, idEmail);
@@ -67,6 +67,7 @@ public class BasketDAO {
 			for (BasketVO b : basketList) {
 				System.out.println("=============================");
 				System.out.println(b);
+				basketNum.add(b.getBasketNum());
 			}
 			System.out.println("=============================");
 			System.out.println("총 금액 : " + totalPrice);
@@ -75,6 +76,7 @@ public class BasketDAO {
 		} finally {
 			JDBC_Close.closeConnStmtRs(conn, pstmt, rs);
 		}
+    return basketNum;
 	}
 
 	
@@ -100,17 +102,14 @@ public class BasketDAO {
 	}
 	
 	//장바구니에 추가하기DAO
-		public int insertBasket(BasketVO basketaddVO) {
+		public int insertBasket(String Email, BasketVO basketaddVO) {
 			int result = 0;
 			try {
 				conn = JDBC_Connect.getConnection();
 				String sql = JDBC_SQL.basket_add();
 				pstmt = conn.prepareStatement(sql);
 				
-				//한번 로그인하면 로그인상태 유지로 계속해서 email 받을거니까
-				//메서드로 받는 걸로 바꿔주기. 우선은 만드는 동안 t임시로 넣어둠.
-				String testId = "abc@gmail.com";
-				pstmt.setString(1, testId);
+				pstmt.setString(1,Email);
 				pstmt.setInt(2, basketaddVO.getAlId());
 				pstmt.setInt(3,  basketaddVO.getCntNumber());
 				

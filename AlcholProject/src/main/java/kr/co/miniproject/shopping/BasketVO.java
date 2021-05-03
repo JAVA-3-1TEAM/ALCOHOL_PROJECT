@@ -1,7 +1,7 @@
 package kr.co.miniproject.shopping;
 
 public class BasketVO {
-	String basketNum;
+	int basketNum;
 	String idEmail;
 	String name;
 	String alName;
@@ -9,7 +9,7 @@ public class BasketVO {
 	int cntNumber;
 	int price;
 
-	public BasketVO(String basketNum, String idEmail, int alId, int cntNumber) {
+	public BasketVO(int basketNum, String idEmail, int alId, int cntNumber) {
 		super();
 		this.basketNum = basketNum;
 		this.idEmail = idEmail;
@@ -31,7 +31,7 @@ public class BasketVO {
 		this.alId = alId;
 	}
 
-	public BasketVO(String basketNum, String idEmail, String name, String alName, int cntNumber, int price) {
+	public BasketVO(int basketNum, String idEmail, String name, String alName, int cntNumber, int price) {
 		super();
 		this.basketNum = basketNum;
 		this.idEmail = idEmail;
@@ -49,11 +49,11 @@ public class BasketVO {
 		this.alId = alId;
 	}
 
-	public String getBasketNum() {
+	public int getBasketNum() {
 		return basketNum;
 	}
 
-	public void setBasketNum(String basketNum) {
+	public void setBasketNum(int basketNum) {
 		this.basketNum = basketNum;
 	}
 

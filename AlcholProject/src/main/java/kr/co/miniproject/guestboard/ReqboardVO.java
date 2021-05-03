@@ -12,20 +12,29 @@ public class ReqboardVO {
 	private int req_num;
 	private String title;
 	private String content;
-	private Date w_date;
-	private String comments;
-	private String id_email;
+	private String wDate;
+	private String idEmail;
 	
 	//insert시 고객이 작성해야하는 건 제목, 내용, 작성자 아이디
 	public ReqboardVO(String title, String content, String id_email) {
 		super();
 		this.title = title;
 		this.content = content;
-		this.id_email = id_email;
+		this.idEmail = id_email;
 	}
-	 
-
-	public ReqboardVO() {//기본생성자
+	
+	public ReqboardVO(int req_num) {
+		this.req_num = req_num;
+	}
+	
+	//reqboard의 모든 목록을 볼 수 있도록 하는 생성자
+	public ReqboardVO(int req_num, String title, String content, String w_date, String id_email) {
+		super();
+		this.req_num = req_num;
+		this.title = title;
+		this.content = content;
+		this.wDate = w_date;
+		this.idEmail = id_email;
 	}
 
 	public int getReq_num() {
@@ -52,40 +61,31 @@ public class ReqboardVO {
 		this.content = content;
 	}
 
-	public Date getW_date() {
-		return w_date;
+	public String getW_date() {
+		return wDate;
 	}
 
-	public void setW_date(Date w_date) {
-		this.w_date = w_date;
+	public void setW_date(String w_date) {
+		this.wDate = w_date;
 	}
 
-	public String getComments() {
-		return comments;
-	}
-
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
-
+	
 	public String getId_email() {
-		return id_email;
+		return idEmail;
 	}
 
 	public void setId_email(String id_email) {
-		this.id_email = id_email;
+		this.idEmail = id_email;
 	}
 
 	@Override
 	public String toString() {
-		return "문의글 등록이 완료되었습니다."+"\n(문의번호: "+req_num+")";
+		return "-----------------------------------------\n"+
+				"문의번호: "+req_num+
+				", 글제목: "+title+
+				"\n내용: "+content+
+				"\n등록일: "+wDate+" , 작성자: "+idEmail;
 	}
-	
-	
-	
-	
-	
-	
 	
 	
 }

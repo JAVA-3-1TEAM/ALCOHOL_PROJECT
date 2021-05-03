@@ -9,6 +9,7 @@ public class JDBC_SQL {
 		return "SELECT * FROM MEMBERS WHERE ID_EMAIL=?";
 	}
 	
+	// 특정 사용자에 대한 주문내역 보여주기.
 	public static String userOrder_Email() {
 		return "SELECT O.ORDER_NUM AS ORDER_NUM,M.ID_EMAIL, M.NAME, M.PHONE,  O.ADDRESS, "
 				+ "A2.AL_NAME, B.CNT_NUMBER, B.CNT_NUMBER * A2.AL_PRICE AS \"가격\", "

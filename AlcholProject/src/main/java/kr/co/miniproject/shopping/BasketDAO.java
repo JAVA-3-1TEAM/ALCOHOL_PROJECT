@@ -75,6 +75,7 @@ public class BasketDAO {
 		} finally {
 			JDBC_Close.closeConnStmtRs(conn, pstmt, rs);
 		}
+	}
 
 
 	
@@ -87,7 +88,7 @@ public class BasketDAO {
 			
 			String sql = JDBC_SQL.deletebasket();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1,basketVO.getAl_id());
+			pstmt.setInt(1,basketVO.getAlId());
 			delresult = pstmt.executeUpdate();
 			
 			
@@ -111,8 +112,8 @@ public class BasketDAO {
 				//메서드로 받는 걸로 바꿔주기. 우선은 만드는 동안 t임시로 넣어둠.
 				String testId = "abc@gmail.com";
 				pstmt.setString(1, testId);
-				pstmt.setInt(2, basketaddVO.getAl_id());
-				pstmt.setInt(3,  basketaddVO.getCnt_number());
+				pstmt.setInt(2, basketaddVO.getAlId());
+				pstmt.setInt(3,  basketaddVO.getCntNumber());
 				
 				result = pstmt.executeUpdate();
 				

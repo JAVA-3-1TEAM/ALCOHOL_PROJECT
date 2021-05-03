@@ -32,23 +32,18 @@ public class AlcoholDAO {
 				AlcoholVO alVO = new AlcoholVO(rs.getInt("AL_ID"),
 						rs.getString("AL_NAME"),
 						rs.getString("AL_TYPE"),
-						rs.getInt("AL_PRICE"));
-				
+						rs.getInt("AL_PRICE"));				
 				list.add(alVO);
-
-			}
-			
+			}			
 		} catch (Exception e) {
-			e.printStackTrace();
-			
+			e.printStackTrace();			
 		}finally {
 			JDBC_Close.closeConnStmt(conn, pstmt);
-
-		}
-		 
-		
+		}		 
 		return list;
 	}
+	
+	
 	
 	
 	

@@ -14,9 +14,9 @@ public class ReqboardMainTest {
 		System.out.println("==========문의글 작성하기==========");
 		System.out.print("제목: ");
 		String title = br.readLine();
-		System.out.print("\n작성자(아이디): ");
+		System.out.print("작성자(아이디): ");
 		String id = br.readLine();
-		System.out.print("\n내용 입력: ");	
+		System.out.print("내용 입력: ");	
 		String content = br.readLine();
 		
 		ReqboardVO reqVO = new ReqboardVO(title, content, id);

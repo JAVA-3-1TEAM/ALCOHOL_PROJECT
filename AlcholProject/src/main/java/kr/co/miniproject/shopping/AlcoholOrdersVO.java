@@ -19,6 +19,7 @@ public class AlcoholOrdersVO {
 		this.cnt_number = cnt_number;
 	}
 	
+	
 	public int getBasket_num() {
 		return basket_num;
 	}

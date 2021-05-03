@@ -6,17 +6,27 @@ public class BasketVO {
 	private int al_id;
 	private int cnt_number;
 	
+
 	public BasketVO(int basket_num, String id_email, int al_id, int cnt_number) {
 		super();
 		this.basket_num = basket_num;
 		this.id_email = id_email;
 		this.al_id = al_id;
 		this.cnt_number = cnt_number;
-	}
-
-	public BasketVO(String id_email) {
+	}	
+	
+	//basketAdd()에서 사용될 생성자
+	public BasketVO(String id_email, int al_id, int cnt_number) {
 		super();
 		this.id_email = id_email;
+		this.al_id = al_id;
+		this.cnt_number = cnt_number;
+	}
+
+	
+	public BasketVO(int al_id) {
+		super();
+		this.al_id = al_id;
 	}
 
 	public int getBasket_num() {

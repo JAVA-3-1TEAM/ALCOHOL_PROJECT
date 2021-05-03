@@ -33,7 +33,7 @@ public class JDBC_SQL {
 	}
 	
 	public static String show_alList() {
-		return "SELECT AL_ID, AL_NAME, AL_TYPE, AL_PRICE FROM ALCOHOL ";
+		return "SELECT AL_ID, AL_NAME, AL_TYPE, AL_PRICE FROM ALCOHOL WHERE AL_TYPE = ? ";
 	}
 	
 	public static String show_basket() {
@@ -49,5 +49,14 @@ public class JDBC_SQL {
 	public static String write_req() {
 		return "INSERT INTO REQBOARD(REQ_NUM, TITLE, CONTENT, ID_EMAIL) "
 				+ "VALUES(SEQ_REQ.NEXTVAL, ?, ?, ?)";
+	}
+	
+	public static String deletebasket() {
+		return "DELETE FROM BASKET WHERE AL_ID = ?";
+	}
+	
+	public static String basket_add() {
+		return "INSERT INTO BASKET (BASKET_NUM, ID_EMAIL, AL_ID, CNT_NUMBER) "
+				+ "VALUES (SEQ_BASK.nextval, ?, ?, ?)"; 
 	}
 }

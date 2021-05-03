@@ -1,10 +1,13 @@
 package kr.co.miniproject.shopping;
 
 public class BasketVO {
-	private int basket_num;
-	private String id_email;
-	private int al_id;
-	private int cnt_number;
+	String basketNum;
+	String idEmail;
+	String name;
+	String alName;
+	int cntNumber;
+	int price;
+
 	
 
 	public BasketVO(int basket_num, String id_email, int al_id, int cnt_number) {
@@ -27,46 +30,127 @@ public class BasketVO {
 	public BasketVO(int al_id) {
 		super();
 		this.al_id = al_id;
+
+
+
+	public BasketVO(String basketNum, String idEmail, String name, String alName, int cntNumber, int price) {
+		super();
+		this.basketNum = basketNum;
+		this.idEmail = idEmail;
+		this.name = name;
+		this.alName = alName;
+		this.cntNumber = cntNumber;
+		this.price = price;
 	}
 
-	public int getBasket_num() {
-		return basket_num;
+
+
+
+
+	public String getBasketNum() {
+		return basketNum;
 	}
 
-	public void setBasket_num(int basket_num) {
-		this.basket_num = basket_num;
+
+
+
+
+	public void setBasketNum(String basketNum) {
+		this.basketNum = basketNum;
 	}
 
-	public String getId_email() {
-		return id_email;
+
+
+
+
+	public String getIdEmail() {
+		return idEmail;
 	}
 
-	public void setId_email(String id_email) {
-		this.id_email = id_email;
+
+
+
+
+	public void setIdEmail(String idEmail) {
+		this.idEmail = idEmail;
 	}
 
-	public int getAl_id() {
-		return al_id;
+
+
+
+
+	public String getName() {
+		return name;
 	}
 
-	public void setAl_id(int al_id) {
-		this.al_id = al_id;
+
+
+
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public int getCnt_number() {
-		return cnt_number;
+
+
+
+
+	public String getAlName() {
+		return alName;
 	}
 
-	public void setCnt_number(int cnt_number) {
-		this.cnt_number = cnt_number;
+
+
+
+
+	public void setAlName(String alName) {
+		this.alName = alName;
 	}
+
+
+
+
+
+	public int getCntNumber() {
+		return cntNumber;
+	}
+
+
+
+
+
+	public void setCntNumber(int cntNumber) {
+		this.cntNumber = cntNumber;
+	}
+
+
+
+
+
+	public int getPrice() {
+		return price;
+	}
+
+
+
+
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+
+
+
 
 	@Override
 	public String toString() {
-		return basket_num +"\n상품: "+al_id +", 수량: "+cnt_number;
-	}//BasketDAO에 상품내용 가져오면 toString내용 다시 한 번 정리할 것.
-	
-	
+		return "주문번호 : " + basketNum + "\n" +
+				"품목 : " + alName + "\n" +
+				"수량 : " + cntNumber + "\n" +
+				"금액 : " + price;
+	}
+
 	
 	
 	

@@ -48,7 +48,12 @@ public class BasketMain {
 				System.out.println("유효하지 않은 번호입니다. 다시 선택해주세요.");
 			}
 					
-		}
+		
 
-	}
+
+
+		List<BasketVO> basketList = bDao.basketList("test1");
+		bDao.printOrderList("test1", basketList);
+
+  }
 }

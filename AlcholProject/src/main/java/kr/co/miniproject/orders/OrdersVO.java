@@ -122,8 +122,6 @@ public class OrdersVO {
 	@Override
 	public String toString() {
 		return "주문번호 : " + orderNum + "\n" +
-			    "아이디 : " + idEmail + "\n" +
-				"주문자명 : " + name + "\n" +
 			    "연락처 : " + phone + "\n" +
 			    "주소 : " + address + "\n" +
 			    "이름 : " + alName + "\n" +

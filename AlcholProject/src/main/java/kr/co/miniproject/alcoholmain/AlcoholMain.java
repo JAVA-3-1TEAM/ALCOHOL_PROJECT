@@ -51,7 +51,8 @@ public class AlcoholMain {
 									menu.mypageMessage();
 									int selectMypage = scanner.nextInt();
 									if(selectMypage == 1) {
-										
+										System.out.println("주문내역 확인");
+										orders.order(loginMember.getId_email());
 									} else if (selectMypage == 2) {
 										System.out.println("문의사항 게시");
 									} else if(selectMypage == 3) {

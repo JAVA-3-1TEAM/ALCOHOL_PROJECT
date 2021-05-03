@@ -63,6 +63,8 @@ public class AlcoholMain {
 									}
 								}
 								break;
+							case 4 :
+								System.out.println("문의하기");
 							default:
 								return;
 							}

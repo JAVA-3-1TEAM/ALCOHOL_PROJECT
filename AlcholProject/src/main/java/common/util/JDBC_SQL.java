@@ -73,6 +73,17 @@ public class JDBC_SQL {
 				+ " FROM REQBOARD R, MEMBERS M WHERE R.ID_EMAIL = M.ID_EMAIL";		
 	}
 	
+	// myPage 
+	
+	// 사용자가 작성한 글 목록 보여주기.
+	public static String showReqList() {
+		return "SELECT REQ_NUM, TITLE, CONTENT, TO_CHAR(W_DATE,'YY-MM-DD') AS W_DATE, M.NAME\n"
+				+ "FROM REQBOARD R INNER JOIN MEMBERS M\n"
+				+ "    on R.ID_EMAIL = M.ID_EMAIL\n"
+				+ "WHERE M.ID_EMAIL = ?";
+		
+	}
+	
 	public static String write_req() {
 		return "INSERT INTO REQBOARD(REQ_NUM, TITLE, CONTENT, ID_EMAIL) "
 				+ "VALUES(SEQ_REQ.NEXTVAL, ?, ?, ?)";

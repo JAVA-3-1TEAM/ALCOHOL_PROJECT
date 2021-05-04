@@ -31,11 +31,12 @@ public class BasketVO {
 		this.alId = alId;
 	}
 
-	public BasketVO(int basketNum, String idEmail, String name, String alName, int cntNumber, int price) {
+	public BasketVO(int basketNum, String idEmail, String name, int alId, String alName, int cntNumber, int price) {
 		super();
 		this.basketNum = basketNum;
 		this.idEmail = idEmail;
 		this.name = name;
+		this.alId = alId;
 		this.alName = alName;
 		this.cntNumber = cntNumber;
 		this.price = price;
@@ -99,7 +100,7 @@ public class BasketVO {
 
 	@Override
 	public String toString() {
-		return "주문번호 : " + basketNum + "\n" + "품목 : " + alName + "\n" + "수량 : " + cntNumber + "\n" + "금액 : " + price;
+		return "제품번호 : " + alId + "\n" + "품목 : " + alName + "\n" + "수량 : " + cntNumber + "\n" + "금액 : " + price;
 	}
 
 }

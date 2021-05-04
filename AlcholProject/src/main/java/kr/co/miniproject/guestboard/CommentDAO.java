@@ -45,7 +45,7 @@ public class CommentDAO {
 	//리퀘번호당 해당하는 코멘트와 함께보도록 조인 한 쿼리문 불러오기 (SELECT문)
 	//req_num, com_num, content, id_email, date
 
-	public List<CommentRequestVO> selectComReqAll(){
+	public List<CommentRequestVO> selectComReqAll(int reqNum){
 		List<CommentRequestVO> crList = null;
 		ResultSet rs;
 		try {
@@ -58,14 +58,16 @@ public class CommentDAO {
 			rs = pstmt.executeQuery();
 			crList = new ArrayList<CommentRequestVO>();
 			while(rs.next()) {
-				CommentRequestVO crvo = new CommentRequestVO(rs.getInt("문의번호"), 
-						rs.getInt("답글번호"), 
-						rs.getString("문의제목"), 
-						rs.getString("문의내용"),
-						rs.getString("답글내용"), 
-						rs.getString("작성자"), 
-						rs.getString("문의접수일"));
-				crList.add(crvo);
+				if(rs.getInt("문의번호") == reqNum) {
+					CommentRequestVO crvo = new CommentRequestVO(rs.getInt("문의번호"), 
+							rs.getInt("답글번호"), 
+							rs.getString("문의제목"), 
+							rs.getString("문의내용"),
+							rs.getString("답글내용"), 
+							rs.getString("작성자"), 
+							rs.getString("문의접수일"));
+					crList.add(crvo);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

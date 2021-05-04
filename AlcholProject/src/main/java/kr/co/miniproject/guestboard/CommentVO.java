@@ -11,9 +11,9 @@ public class CommentVO {
 	String idEmail; //글쓴이 아이디
 
 	//최초 답글 작성시 쓸 생성자
-	public CommentVO(int comNum, String content, String idEmail) {
+	public CommentVO(int reqNum, String content, String idEmail) {
 		super();
-		this.comNum = comNum;
+		this.reqNum = reqNum;
 		this.content = content;
 		this.idEmail = idEmail;
 	}

@@ -13,19 +13,20 @@ public class ReqboardCommentWriteMainTest {
 	static ReqboardDAO reqDao = new ReqboardDAO();
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static CommentDAO comDao = new CommentDAO();
-	
-	//코멘트 변경 메서드 - 왜 또 안되는지 모르겠따;
 
-	public static void showReqAndCom(){
-		//한 게시글당 해당하는 답글만 뽑아보는 기능
+	// 코멘트 변경 메서드 - 왜 또 안되는지 모르겠따;
+
+	public static void showReqAndCom(int reqNum) {
+		// 한 게시글당 해당하는 답글만 뽑아보는 기능
 		comDao = new CommentDAO();
-		List<CommentRequestVO> crList = comDao.selectComReqAll();
-		for(CommentRequestVO crvo : crList) {
-			System.out.println(crvo);
+		List<CommentRequestVO> crList = comDao.selectComReqAll(reqNum);
+		if (crList.size() != 0) {
+			for (CommentRequestVO crvo : crList) {
+				System.out.println(crvo);
+			}
 		}
 	}
-	
-	
+
 	public static void writeNewReqOrCom() throws IOException {
 		// 문의글 목록보고 답글쓰거나 문의글 새로작성 하는메서드
 		while (true) {
@@ -42,8 +43,8 @@ public class ReqboardCommentWriteMainTest {
 					System.out.println(vo);
 
 					reqNumList.add(vo.getReq_num());
-					if(vo.getId_email().equals(testEmail)) {
-						showReqAndCom();
+					if (vo.getId_email().equals(testEmail)) {
+						showReqAndCom(vo.getReq_num());
 					}
 				}
 				System.out.println();
@@ -60,7 +61,7 @@ public class ReqboardCommentWriteMainTest {
 							System.out.println("잘못된 입력값입니다. 다시 선택해주세요.");
 							System.out.print(">> ");
 							answer = scanner.nextInt();
-						} 
+						}
 
 						if (reqNumList.contains(answer)) {
 							System.out.println("=========문의답글 작성하기=========");
@@ -97,13 +98,13 @@ public class ReqboardCommentWriteMainTest {
 				int cnt = reqDao.insertReq(reqVO);
 				System.out.println("확인용 sys문" + cnt);
 
-			} else if(guestAnswer==3) {
+			} else if (guestAnswer == 3) {
 				System.out.println("메인으로 돌아갑니다. ");
 				return;
 			} else {
 				System.out.println("잘못된 입력입니다. 다시 선택해주세요");
 			}
-			
+
 		}
 	}
 

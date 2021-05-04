@@ -62,7 +62,7 @@ public class OrdersDAO {
 			System.out.println(idEmail);
 			String id = idEmail;
 			String name = orderList.get(0).getName();
-			System.out.println(name + "님(" + id + ")의 장바구니 목록입니다.\n");
+			System.out.println(name + "님(" + id + ")의 주문하신 목록입니다.\n");
 			for (OrdersVO o : orderList) {
 				System.out.println("=============================");
 				System.out.println(o);

@@ -53,6 +53,7 @@ public class BasketMain {
 				} else if (select == 3) {
 					System.out.println("주문하기로 이동합니다.");
 					bDAO.insertOrderToBasket(Email);
+					break;
 				} else if(select ==4){
 					// 뒤로가기
 					break;

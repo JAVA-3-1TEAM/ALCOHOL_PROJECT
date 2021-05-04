@@ -79,18 +79,18 @@ public class ReqboardDAO {
 	}
 	
 	
-	public int updateReq(ReqboardVO reqVO) {
+	public int chgReq(ReqboardVO reqVO) {
 		int result = 0;
 		try {
-			conn = JDBC_Connect.getConnection();			
+			conn = JDBC_Connect.getConnection();
 			String sql = JDBC_SQL.changeReq();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, reqVO.getContent());
 			pstmt.setInt(2, reqVO.getReq_num());
-			System.out.println(sql);
+
 			result = pstmt.executeUpdate();
-			if(result != 0) {
-				System.out.println("게시글 내용 변경이 완료되었습니다.");
+			if (result != 0) {
+				System.out.println("게시글 내용 수정이 완료되었습니다.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,7 +98,6 @@ public class ReqboardDAO {
 			JDBC_Close.closeConnStmt(conn, pstmt);
 		}
 		return result;
-		
 	}
 	
 }

@@ -73,8 +73,27 @@ public class CommentDAO {
 		}		
 		return crList;
 	}
-	 
 	
+	public int chgCom(CommentVO comVO) {
+		int result = 0; 
+		try {
+			conn = JDBC_Connect.getConnection();
+			String sql = JDBC_SQL.changeCom();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, comVO.getContent());
+			pstmt.setInt(2, comVO.getComNum());
+			System.out.println(sql);
+			result = pstmt.executeUpdate();
+			if (result != 0) {
+				System.out.println("답글 수정이 완료되었습니다.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBC_Close.closeConnStmt(conn, pstmt);
+		}
+		return result;
+	}
 }
 
  

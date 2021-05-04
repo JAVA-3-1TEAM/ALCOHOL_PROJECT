@@ -7,20 +7,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ReqboardCommentWriteMainTest {
+public class ReqboardCommentWriteMainTest { 
 	// BufferedReaderr이용하기
 	static Scanner scanner = new Scanner(System.in);
 	static ReqboardDAO reqDao = new ReqboardDAO();
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static CommentDAO comDao = new CommentDAO();
-
-	public static void main(String[] args) throws IOException {
+	
+	//코멘트 변경 메서드 - 왜 또 안되는지 모르겠따;
+	public void chgComWrite() throws IOException{
+		System.out.println("변경할 답글 번호: ");
+		int comNum = Integer.parseInt(br.readLine());
+		System.out.println("새로운 답글 내용: ");
+		String newComment = br.readLine();
+		CommentVO comVO = new CommentVO(comNum, newComment);
+		int cnt = comDao.chgCom(comVO);
+		System.out.println(cnt+"건의 답글 수정완료");
+	}
+	
+	public void chgReqWrite() throws IOException {
 		System.out.println("변경할 게시글 번호: ");
 		int boardnum = Integer.parseInt(br.readLine());
 		System.out.println("새로운 글 내용: ");
-		String newCont = br.readLine();
-		ReqboardVO reqvo = new ReqboardVO(boardnum, newCont);
-		int cnt = reqDao.updateReq(reqvo);
+		String newRequest = br.readLine();
+		ReqboardVO reqvo = new ReqboardVO(boardnum, newRequest);
+		int cnt = reqDao.chgReq(reqvo);
 		System.out.println(cnt+"건 업데이트 완료");
 	}
 	

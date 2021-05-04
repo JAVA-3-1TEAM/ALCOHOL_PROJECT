@@ -66,7 +66,7 @@ public class JDBC_SQL {
 
 	// 장바구니 ordernum = 주문목록 ordernum
 	public static String updateBasket_orderNumIdEmail() {
-		return "update basket set order_num = ? where id_email=?";
+		return "update basket set order_num = ? where id_email=? AND ORDER_NUM = 0";
 	}
 
 	public static String show_alList() {

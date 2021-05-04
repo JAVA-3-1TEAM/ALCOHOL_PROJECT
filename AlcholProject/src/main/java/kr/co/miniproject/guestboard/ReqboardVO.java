@@ -26,7 +26,13 @@ public class ReqboardVO {
 	public ReqboardVO(int req_num) {
 		this.req_num = req_num;
 	}
-	
+	//글 내용 수정시 필요한 생성자
+	public ReqboardVO(int req_num, String content) {
+		super();
+		this.req_num = req_num;
+		this.content = content;
+	}
+
 	//reqboard의 모든 목록을 볼 수 있도록 하는 생성자
 	public ReqboardVO(int req_num, String title, String content, String w_date, String id_email) {
 		super();

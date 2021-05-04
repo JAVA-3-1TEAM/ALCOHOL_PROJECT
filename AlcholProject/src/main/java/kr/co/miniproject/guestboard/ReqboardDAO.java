@@ -11,6 +11,7 @@ import common.util.JDBC_Close;
 import common.util.JDBC_Connect;
 import common.util.JDBC_SQL;
 import kr.co.miniproject.shopping.AlcoholVO;
+import kr.co.miniproject.users.MemberVO;
 
 public class ReqboardDAO {
 	
@@ -75,6 +76,29 @@ public class ReqboardDAO {
 		}		 
 		
 		return reqVOlist;
+	}
+	
+	
+	public int updateReq(ReqboardVO reqVO) {
+		int result = 0;
+		try {
+			conn = JDBC_Connect.getConnection();			
+			String sql = JDBC_SQL.changeReq();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, reqVO.getContent());
+			pstmt.setInt(2, reqVO.getReq_num());
+			System.out.println(sql);
+			result = pstmt.executeUpdate();
+			if(result != 0) {
+				System.out.println("게시글 내용 변경이 완료되었습니다.");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBC_Close.closeConnStmt(conn, pstmt);
+		}
+		return result;
+		
 	}
 	
 }

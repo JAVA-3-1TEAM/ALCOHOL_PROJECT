@@ -6,6 +6,13 @@ public class MemberVO {
 	private String name;
 	private String birth;
 	private String phone;
+	
+	//비밀번호 변경시 사용할 생성자
+	public MemberVO(String id_email, String pwd) {
+		super();
+		this.id_email = id_email;
+		this.pwd = pwd;
+	}
 
 	public MemberVO(String id_email, String pwd, String name, String birth, String phone) {
 		super();

@@ -61,7 +61,6 @@ public class OrdersDAO {
 				if (rs.next()) {
 					totalPrice = rs.getInt("TOTAL_PRICE");
 				}
-				System.out.println(idEmail);
 				String id = idEmail;
 				String name = orderList.get(0).getName();
 				System.out.println(name + "님(" + id + ")의 주문하신 목록입니다.\n");

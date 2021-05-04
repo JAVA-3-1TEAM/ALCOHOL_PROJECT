@@ -28,7 +28,6 @@ public class OrdersMain {
 				System.out.println("주문번호 선택 >> ");
 				int choice = scanner.nextInt();
 				if (orderNumList.contains(choice)) {
-					System.out.println("yes");
 					List<OrdersVO> orderList = orderDAO.orderList(email, choice);
 					orderDAO.printOrderList(email, orderList, choice);
 				} else {
@@ -44,7 +43,6 @@ public class OrdersMain {
 				System.out.println("취소하실 주문 번호를 입력해주세요 >> ");
 				choice = scanner.nextInt();
 				if (orderNumList.contains(choice)) {
-					System.out.println("yes");
 					orderDAO.orderDelete(email, choice);
 				} else {
 					System.out.println("일치하는 주문번호가 없습니다. 이전페이지로 돌아갑니다.");

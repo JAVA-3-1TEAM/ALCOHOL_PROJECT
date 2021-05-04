@@ -27,9 +27,9 @@ public class MenuScreen {
 	}
 	
 	public void mypageMessage() {
-		System.out.println("===================== MyPage ========================");
-		System.out.println("======== 1. 주문  |  2. 문의 내역  |  3. 종료 ========");
-		System.out.println("=====================================================");
+		System.out.println("============================ MyPage ===============================");
+		System.out.println("======== 1. 주문  |  2. 나의 문의 내역 & 비밀번호 변경  |  3. 종료 ========");
+		System.out.println("===================================================================");
 	}
 	
 	public void orderDeleteMessage() {

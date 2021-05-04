@@ -11,17 +11,19 @@ import kr.co.miniproject.shopping.BasketMain;
 import kr.co.miniproject.users.MemberMain;
 import kr.co.miniproject.users.MemberVO;
 import kr.co.miniproject.orders.OrdersMain;
+import kr.co.miniproject.mypage.MyReqOrderMain;
 
-public class MainPage { 
+public class MainPage {
 	public static void main(String[] args) {
 		MemberMain membersMain = new MemberMain();
 		OrdersMain ordersMain = new OrdersMain();
 		AlcoholMain alcoholMain = new AlcoholMain();
 		BasketMain basketMain = new BasketMain();
+		MyReqOrderMain myReqOrderMain = new MyReqOrderMain();
 		MenuScreen menu = new MenuScreen();
 		Scanner scanner = new Scanner(System.in);
 
-		while (true) { 
+		while (true) {
 			menu.mainScreen();
 			int select = scanner.nextInt();
 			// 회원가입 페이지로 이동 -> MemberMain.signUp()
@@ -54,20 +56,16 @@ public class MainPage {
 								basketMain.basket(loginMember.getId_email());
 								break;
 							case 3:
-								while(true) {
+								while (true) {
 									menu.mypageMessage();
 									int selectMypage = scanner.nextInt();
-									if(selectMypage == 1) {
+									if (selectMypage == 1) {
 										System.out.println("주문내역 확인");
 										System.out.println(loginMember.getId_email());
 										ordersMain.order(loginMember.getId_email());
 									} else if (selectMypage == 2) {
-										System.out.println("문의사항 게시");
-										//내가쓴 문의글만 보는 마이페이지내의 문의하기
-										//showMyReqList()메서드 들어가는 메인단이 들어가야합니다.
-						
-										
-									} else if(selectMypage == 3) {
+										myReqOrderMain.myReqMain(loginMember.getId_email());
+									} else if (selectMypage == 3) {
 										System.out.println("메뉴로 돌아갑니다.");
 										break;
 									} else {
@@ -75,13 +73,11 @@ public class MainPage {
 									}
 								}
 								break;
-							case 4 :
+							case 4:
 								System.out.println("문의하기");
 								ReqboardCommentWriteMainTest.writeNewReqOrCom();
 								break;
 
-								
-								
 							default:
 								return;
 							}

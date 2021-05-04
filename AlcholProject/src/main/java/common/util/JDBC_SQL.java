@@ -10,14 +10,14 @@ public class JDBC_SQL {
 	}
 
 	// 특정 사용자에 대한 주문내역 보여주기. -> ORDER_NUM 컬럼으로 조(수정필요)
-	public static String userOrderList_Email() {
+	public static String userOrderList_EmailOrderNum() {
 		return "SELECT O.ORDER_NUM AS ORDER_NUM,M.ID_EMAIL, M.NAME, M.PHONE,  O.ADDRESS,\n"
 				+ "				A2.AL_NAME, B.CNT_NUMBER, B.CNT_NUMBER * A2.AL_PRICE AS 가격,\n"
 				+ "				TO_CHAR(O.ORGDATE,'MM-DD') AS ORGDATE\n"
 				+ "                FROM MEMBERS M INNER JOIN ORDERS O\n"
 				+ "                    ON M.ID_EMAIL = O.ID_EMAIL\n" + "                INNER JOIN BASKET B\n"
 				+ "                    ON O.ORDER_NUM = B.ORDER_NUM\n" + "                INNER JOIN ALCOHOL A2\n"
-				+ "                    ON B.AL_ID = A2.AL_ID\n" + "                WHERE M.ID_EMAIL = ?";
+				+ "                    ON B.AL_ID = A2.AL_ID\n" + "                WHERE M.ID_EMAIL = ? AND O.ORDER_NUM =?";
 	}
 
 	// 주문테이블 토탈금액
@@ -26,7 +26,7 @@ public class JDBC_SQL {
 				+ "				FROM MEMBERS M INNER JOIN BASKET B\n"
 				+ "				    on M.ID_EMAIL = B.ID_EMAIL\n"
 				+ "				INNER JOIN ALCOHOL A2 on B.AL_ID = A2.AL_ID\n" + "				INNER JOIN ORDERS O\n"
-				+ "				   on B.ORDER_NUM = O.ORDER_NUM\n" + "				WHERE M.ID_EMAIL = ?)";
+				+ "				   on B.ORDER_NUM = O.ORDER_NUM\n" + "				WHERE M.ID_EMAIL = ? AND O.ORDER_NUM =?)";
 	}
 
 	// 주문목록 삭제
@@ -36,16 +36,16 @@ public class JDBC_SQL {
 
 	// 장바구니 리스트
 	public static String userBasketList_Email() {
-		return "select B.BASKET_NUM, B.ID_EMAIL, M.NAME, A2.AL_NAME,B.CNT_NUMBER, B.CNT_NUMBER * A2.AL_PRICE AS PRICE\n"
+		return "select B.BASKET_NUM, B.ID_EMAIL, M.NAME, A2.AL_ID, A2.AL_NAME,B.CNT_NUMBER, B.CNT_NUMBER * A2.AL_PRICE AS PRICE\n"
 				+ "from BASKET B INNER JOIN ALCOHOL A2\n" + "    on B.AL_ID = A2.AL_ID\n" + "INNER JOIN MEMBERS M\n"
-				+ "    on B.ID_EMAIL = M.ID_EMAIL\n" + "WHERE M.ID_EMAIL = ?";
+				+ "    on B.ID_EMAIL = M.ID_EMAIL\n" + "WHERE M.ID_EMAIL = ? AND ORDER_NUM = 0";
 	}
 
 	// 장바구니 테이블 토탈금액
 	public static String basketTotalPrice_Email() {
 		return "SELECT SUM(TOTAL) AS TOTAL_PRICE\n" + "FROM (select B.CNT_NUMBER * A2.AL_PRICE AS TOTAL\n"
 				+ "from BASKET B INNER JOIN ALCOHOL A2\n" + "    on B.AL_ID = A2.AL_ID\n" + "INNER JOIN MEMBERS M\n"
-				+ "    on B.ID_EMAIL = M.ID_EMAIL\n" + "    WHERE M.ID_EMAIL = ?)";
+				+ "    on B.ID_EMAIL = M.ID_EMAIL\n" + "    WHERE M.ID_EMAIL = ? AND ORDER_NUM = 0)";
 	}
 
 	// 장바구니에서 주문테이블로 옮기기
@@ -69,6 +69,10 @@ public class JDBC_SQL {
 		return "update basket set order_num = ? where id_email=? AND ORDER_NUM = 0";
 	}
 
+	// 주문번호 리스트에 넣기
+	public static String selectOrderNum_IdEmail() {
+		return "select distinct ORDER_NUM from ORDERS WHERE ORDER_NUM NOT IN 0 AND ID_EMAIL =?";
+	}
 	public static String show_alList() {
 		return "SELECT AL_ID, AL_NAME, AL_TYPE, AL_PRICE FROM ALCOHOL WHERE AL_TYPE = ? ";
 	}
@@ -109,7 +113,7 @@ public class JDBC_SQL {
 
 	// 장바구니 품목제거
 	public static String deleteBasket() {
-		return "DELETE FROM BASKET WHERE BASKET_NUM = ?";
+		return "DELETE FROM BASKET WHERE AL_ID = ?";
 	}
 
 	public static String basket_add() {

@@ -38,8 +38,8 @@ public class BasketMain {
 					if (basketNumList.contains(choiceBasketNum)) {
 						// 객체가 담긴 리스트 탐색하면서 번호가 일치하는 객체 찾을 시 삭제.
 						for (BasketVO bvo : basketList) {
-							if (bvo.getBasketNum() == choiceBasketNum) {
-								System.out.println(bvo.getBasketNum());
+							if (bvo.getAlId() == choiceBasketNum) {
+								System.out.println(bvo.getAlId());
 								bDAO.deletebasket(choiceBasketNum);
 								System.out.println("품목이 삭제되었습니다.");
 								basketList = bDAO.basketList(Email);

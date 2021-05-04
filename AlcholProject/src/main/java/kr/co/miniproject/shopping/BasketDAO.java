@@ -32,10 +32,11 @@ public class BasketDAO {
 				String idEamil = rs.getString("ID_EMAIL");
 				String name = rs.getString("NAME");
 				String alName = rs.getString("AL_NAME");
+				int alId = rs.getInt("AL_ID");
 				int cntNumber = rs.getInt("CNT_NUMBER");
 				int price = rs.getInt("PRICE");
 
-				BasketVO basketVO = new BasketVO(basketNum, idEmail, name, alName, cntNumber, price);
+				BasketVO basketVO = new BasketVO(basketNum, idEmail, name, alId, alName, cntNumber, price);
 				basketList.add(basketVO);
 			}
 
@@ -66,7 +67,7 @@ public class BasketDAO {
 			for (BasketVO b : basketList) {
 				System.out.println("=============================");
 				System.out.println(b);
-				basketNum.add(b.getBasketNum());
+				basketNum.add(b.getAlId());
 			}
 			System.out.println("=============================");
 			System.out.println("총 금액 : " + totalPrice);
@@ -79,14 +80,14 @@ public class BasketDAO {
 	}
 
 	// 장바구니 목록에서 제거하는 메서드
-	public int deletebasket(int basketNum) {
-		System.out.println(basketNum);
+	public int deletebasket(int alId) {
+		System.out.println(alId);
 		int delresult = 0;
 		try {
 			conn = JDBC_Connect.getConnection();
 			String sql = JDBC_SQL.deleteBasket();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, basketNum);
+			pstmt.setInt(1, alId);
 			delresult = pstmt.executeUpdate();
 
 		} catch (Exception e) {

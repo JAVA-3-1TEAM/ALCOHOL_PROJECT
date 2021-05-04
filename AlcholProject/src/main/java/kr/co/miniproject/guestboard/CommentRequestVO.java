@@ -14,7 +14,7 @@ public class CommentRequestVO {
 			String wDate) {
 		super();
 		this.reqNum = reqNum;
-		this.comNum = comNum;
+		this.comNum = comNum; 
 		this.title = title;
 		this.rContent = rContent;
 		this.cContent = cContent;

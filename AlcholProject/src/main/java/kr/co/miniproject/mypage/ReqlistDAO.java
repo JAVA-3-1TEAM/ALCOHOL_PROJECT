@@ -1,5 +1,8 @@
 package kr.co.miniproject.mypage;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -11,13 +14,20 @@ import java.util.List;
 import common.util.JDBC_Close;
 import common.util.JDBC_Connect;
 import common.util.JDBC_SQL;
+import kr.co.miniproject.guestboard.CommentDAO;
 import kr.co.miniproject.guestboard.CommentVO;
+import kr.co.miniproject.guestboard.ReqboardDAO;
+import kr.co.miniproject.guestboard.ReqboardVO;
 
 public class ReqlistDAO {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 
+	static ReqboardDAO reqDao = new ReqboardDAO();
+	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	static CommentDAO comDao = new CommentDAO();
+	
 	public List<ReqlistVO> myRequestList(String idEmail) {
 		List<ReqlistVO> reqList = null;
 		conn = JDBC_Connect.getConnection();
@@ -120,5 +130,28 @@ public class ReqlistDAO {
 			JDBC_Close.closeConnStmtRs(conn, pstmt, rs);
 		}
 	}
+	
+	
+	public static void chgComWrite() throws IOException{
+		System.out.println("변경할 답글 번호: ");
+		int comNum = Integer.parseInt(br.readLine());
+		System.out.println("새로운 답글 내용: ");
+		String newComment = br.readLine();
+		CommentVO comVO = new CommentVO(comNum, newComment);
+		int cnt = comDao.chgCom(comVO);
+		System.out.println(cnt+"건의 답글 수정완료");
+	}
+	
+	//문의글 변경하는 메서드
+	public static void chgReqWrite() throws IOException {
+		System.out.println("변경할 게시글 번호: ");
+		int boardnum = Integer.parseInt(br.readLine());
+		System.out.println("새로운 글 내용: ");
+		String newRequest = br.readLine();
+		ReqboardVO reqvo = new ReqboardVO(boardnum, newRequest);
+		int cnt = reqDao.chgReq(reqvo);
+		System.out.println(cnt+"건 업데이트 완료");
+	}
+	
 
 }

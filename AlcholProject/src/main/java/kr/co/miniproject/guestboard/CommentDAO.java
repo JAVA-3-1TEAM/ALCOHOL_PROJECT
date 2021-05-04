@@ -53,9 +53,10 @@ public class CommentDAO {
 			String sql = JDBC_SQL.showReqCom();
 			pstmt = conn.prepareStatement(sql);
 			
+			String testEmail = "abc@gmail.com";
+			pstmt.setString(1, testEmail);
 			rs = pstmt.executeQuery();
 			crList = new ArrayList<CommentRequestVO>();
-			
 			while(rs.next()) {
 				CommentRequestVO crvo = new CommentRequestVO(rs.getInt("문의번호"), 
 						rs.getInt("답글번호"), 

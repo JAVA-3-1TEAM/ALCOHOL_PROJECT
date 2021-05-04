@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ReqboardCommentWriteMainTest { 
+public class ReqboardCommentWriteMainTest {
 	// BufferedReaderr이용하기
 	static Scanner scanner = new Scanner(System.in);
 	static ReqboardDAO reqDao = new ReqboardDAO();
@@ -15,27 +15,8 @@ public class ReqboardCommentWriteMainTest {
 	static CommentDAO comDao = new CommentDAO();
 	
 	//코멘트 변경 메서드 - 왜 또 안되는지 모르겠따;
-	public void chgComWrite() throws IOException{
-		System.out.println("변경할 답글 번호: ");
-		int comNum = Integer.parseInt(br.readLine());
-		System.out.println("새로운 답글 내용: ");
-		String newComment = br.readLine();
-		CommentVO comVO = new CommentVO(comNum, newComment);
-		int cnt = comDao.chgCom(comVO);
-		System.out.println(cnt+"건의 답글 수정완료");
-	}
-	
-	public void chgReqWrite() throws IOException {
-		System.out.println("변경할 게시글 번호: ");
-		int boardnum = Integer.parseInt(br.readLine());
-		System.out.println("새로운 글 내용: ");
-		String newRequest = br.readLine();
-		ReqboardVO reqvo = new ReqboardVO(boardnum, newRequest);
-		int cnt = reqDao.chgReq(reqvo);
-		System.out.println(cnt+"건 업데이트 완료");
-	}
-	
-	public void showReqAndCom(){
+
+	public static void showReqAndCom(){
 		//한 게시글당 해당하는 답글만 뽑아보는 기능
 		comDao = new CommentDAO();
 		List<CommentRequestVO> crList = comDao.selectComReqAll();
@@ -44,12 +25,13 @@ public class ReqboardCommentWriteMainTest {
 		}
 	}
 	
-	public void writeNewReqOrCom() throws IOException {
+	
+	public static void writeNewReqOrCom() throws IOException {
 		// 문의글 목록보고 답글쓰거나 문의글 새로작성 하는메서드
-		System.out.println("1. 문의글 목록 2. 새 문의글 쓰기");
-		int guestAnswer = scanner.nextInt();
 		while (true) {
-
+			String testEmail = "abc@gmail.com";
+			System.out.println("1. 문의글 목록 2. 새 문의글 쓰기 3. 돌아가기");
+			int guestAnswer = scanner.nextInt();
 			List<Integer> reqNumList = new ArrayList<Integer>();
 
 			if (guestAnswer == 1) {
@@ -60,37 +42,44 @@ public class ReqboardCommentWriteMainTest {
 					System.out.println(vo);
 
 					reqNumList.add(vo.getReq_num());
+					if(vo.getId_email().equals(testEmail)) {
+						showReqAndCom();
+					}
 				}
+				System.out.println();
 
 				System.out.println("답글을 작성하시겠습니까?");
 				System.out.print("1. 네 2. 아니오(종료)");
 				int reqA = scanner.nextInt();
 
 				if (reqA == 1) {
-					System.out.println("답글 달 문의글 번호? ");
-					int answer = scanner.nextInt();
-					while (reqNumList.contains(answer) == false) {
-						System.out.println("잘못된 입력값입니다. 다시 선택해주세요.");
-						System.out.print(">> ");
-						answer = scanner.nextInt();
-					}
+					while (true) {
+						System.out.println("답글 달 문의글 번호? ");
+						int answer = scanner.nextInt();
+						while (reqNumList.contains(answer) == false) {
+							System.out.println("잘못된 입력값입니다. 다시 선택해주세요.");
+							System.out.print(">> ");
+							answer = scanner.nextInt();
+						} 
 
-					if (reqNumList.contains(answer)) {
-						System.out.println("=========문의답글 작성하기=========");
-						// 답변내용, 글쓴이 아이디, reqNum순으로 받아오기
-						System.out.println("답글내용: ");
-						System.out.print(">> ");
-						String content = br.readLine();
-						// 작성자 아이디 받아오는 메서드 필요-> 현재 DAO에 임의로 admin@test.com으로 지정해놓음 추후에 변경 필요
-						String comIdEmailTest = "admin@test.com";
-						CommentVO comVO = new CommentVO(answer, content, comIdEmailTest);
-						int cnt = comDao.insertOne(comVO);
-						System.out.println("comment insert 확인용 sys문입니다. 등록건수: " + cnt);
+						if (reqNumList.contains(answer)) {
+							System.out.println("=========문의답글 작성하기=========");
+							// 답변내용, 글쓴이 아이디, reqNum순으로 받아오기
+							System.out.println("답글내용: ");
+							System.out.print(">> ");
+							String content = br.readLine();
+							// 작성자 아이디 받아오는 메서드 필요-1> 현재 DAO에 임의로 admin@test.com으로 지정해놓음 추후에 변경 필요
+							String comIdEmailTest = "admin@test.com";
+							CommentVO comVO = new CommentVO(answer, content, comIdEmailTest);
+							int cnt = comDao.insertOne(comVO);
+							System.out.println("comment insert 확인용 sys문입니다. 등록건수: " + cnt);
+							break;
+						}
 						break;
 					}
 
 				} else if (reqA == 2) {
-					System.out.println("여기에 뭘넣어야 할까용");
+					System.out.println("메인으로 돌아갑니다.");
 				}
 
 			} else if (guestAnswer == 2) {
@@ -108,9 +97,13 @@ public class ReqboardCommentWriteMainTest {
 				int cnt = reqDao.insertReq(reqVO);
 				System.out.println("확인용 sys문" + cnt);
 
+			} else if(guestAnswer==3) {
+				System.out.println("메인으로 돌아갑니다. ");
+				return;
 			} else {
-				System.out.println("잘못된 입력입니다.");
+				System.out.println("잘못된 입력입니다. 다시 선택해주세요");
 			}
+			
 		}
 	}
 

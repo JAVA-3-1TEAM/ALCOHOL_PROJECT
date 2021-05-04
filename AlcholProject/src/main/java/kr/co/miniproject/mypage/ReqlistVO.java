@@ -51,7 +51,7 @@ public class ReqlistVO {
 		this.name = name;
 	}
 
-	public String getwDate() {
+	public String getwDate() { 
 		return wDate;
 	}
 

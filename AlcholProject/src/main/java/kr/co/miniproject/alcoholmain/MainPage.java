@@ -3,6 +3,7 @@ package kr.co.miniproject.alcoholmain;
 import java.io.IOException;
 import java.util.Scanner;
 
+import kr.co.miniproject.guestboard.ReqboardCommentWriteMainTest;
 import kr.co.miniproject.menu.MenuScreen;
 import kr.co.miniproject.orders.OrdersMain;
 import kr.co.miniproject.shopping.AlcoholMain;
@@ -11,7 +12,7 @@ import kr.co.miniproject.users.MemberMain;
 import kr.co.miniproject.users.MemberVO;
 import kr.co.miniproject.orders.OrdersMain;
 
-public class MainPage {
+public class MainPage { 
 	public static void main(String[] args) {
 		MemberMain membersMain = new MemberMain();
 		OrdersMain ordersMain = new OrdersMain();
@@ -20,7 +21,7 @@ public class MainPage {
 		MenuScreen menu = new MenuScreen();
 		Scanner scanner = new Scanner(System.in);
 
-		while (true) {
+		while (true) { 
 			menu.mainScreen();
 			int select = scanner.nextInt();
 			// 회원가입 페이지로 이동 -> MemberMain.signUp()
@@ -62,6 +63,10 @@ public class MainPage {
 										ordersMain.order(loginMember.getId_email());
 									} else if (selectMypage == 2) {
 										System.out.println("문의사항 게시");
+										//내가쓴 문의글만 보는 마이페이지내의 문의하기
+										//showMyReqList()메서드 들어가는 메인단이 들어가야합니다.
+						
+										
 									} else if(selectMypage == 3) {
 										System.out.println("메뉴로 돌아갑니다.");
 										break;
@@ -72,6 +77,11 @@ public class MainPage {
 								break;
 							case 4 :
 								System.out.println("문의하기");
+								ReqboardCommentWriteMainTest.writeNewReqOrCom();
+								break;
+
+								
+								
 							default:
 								return;
 							}

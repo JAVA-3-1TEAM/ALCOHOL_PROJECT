@@ -35,20 +35,25 @@ public class BasketMain {
 				} else if (select == 2) {
 					System.out.println("삭제하실 품목의 주문 번호를 입력해주세요.");
 					int choiceBasketNum = scanner.nextInt();
-					//
 					if (basketNumList.contains(choiceBasketNum)) {
 						// 객체가 담긴 리스트 탐색하면서 번호가 일치하는 객체 찾을 시 삭제.
 						for (BasketVO bvo : basketList) {
 							if (bvo.getBasketNum() == choiceBasketNum) {
-								bDAO.deletebasket(bvo);
+								System.out.println(bvo.getBasketNum());
+								bDAO.deletebasket(choiceBasketNum);
+								System.out.println("품목이 삭제되었습니다.");
+								basketList = bDAO.basketList(Email);
 								break;
 							}
 						}
 					} else {
-						System.out.println("일치하는품목이 ");
+						System.out.println("일치하는품목이 업습니다.");
 					}
 
 				} else if (select == 3) {
+					System.out.println("주문하기로 이동합니다.");
+					bDAO.insertOrderToBasket(Email);
+				} else if(select ==4){
 					// 뒤로가기
 					break;
 				} else {

@@ -58,6 +58,7 @@ public class MainPage {
 									int selectMypage = scanner.nextInt();
 									if(selectMypage == 1) {
 										System.out.println("주문내역 확인");
+										System.out.println(loginMember.getId_email());
 										ordersMain.order(loginMember.getId_email());
 									} else if (selectMypage == 2) {
 										System.out.println("문의사항 게시");

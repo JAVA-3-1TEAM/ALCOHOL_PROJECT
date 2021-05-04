@@ -17,10 +17,15 @@ public class OrdersMain {
 			mc.orderDeleteMessage();
 			int select = scanner.nextInt();
 			if (select == 1) {
-				System.out.println("취소하실 주문 번호를 입력해주세요 >> ");
-				int choice = scanner.nextInt();
-				orderDAO.orderDelete(email, choice);
-				orderDAO.orderList(email);
+				if (orderList.size() != 0) {
+					System.out.println("취소하실 주문 번호를 입력해주세요 >> ");
+					int choice = scanner.nextInt();
+					orderDAO.orderDelete(email, choice);
+					orderDAO.orderList(email);
+				} else {
+					System.out.println("주문내역이 존재하지 않습니다. 이전페이지로 돌아갑니다.");
+					break;
+				}
 			} else if (select == 2) {
 				orderDAO.orderList(email);
 			} else {

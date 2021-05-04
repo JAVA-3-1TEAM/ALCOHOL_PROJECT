@@ -2,6 +2,9 @@ package kr.co.miniproject.guestboard;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import common.util.JDBC_Close;
@@ -39,9 +42,39 @@ public class CommentDAO {
 		return result;
 	}
 	
+	//리퀘번호당 해당하는 코멘트와 함께보도록 조인 한 쿼리문 불러오기 (SELECT문)
+	//req_num, com_num, content, id_email, date
+
+	public List<CommentRequestVO> selectComReqAll(){
+		List<CommentRequestVO> crList = null;
+		ResultSet rs;
+		try {
+			conn = JDBC_Connect.getConnection();
+			String sql = JDBC_SQL.showReqCom();
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			crList = new ArrayList<CommentRequestVO>();
+			
+			while(rs.next()) {
+				CommentRequestVO crvo = new CommentRequestVO(rs.getInt("문의번호"), 
+						rs.getInt("답글번호"), 
+						rs.getString("문의제목"), 
+						rs.getString("문의내용"),
+						rs.getString("답글내용"), 
+						rs.getString("작성자"), 
+						rs.getString("문의접수일"));
+				crList.add(crvo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			JDBC_Close.closeConnStmt(conn, pstmt);
+		}		
+		return crList;
+	}
+	 
+	
 }
 
-
-
-//INSERT INTO COMMENTS(COM_NUM, CONTENT, COM_DATE, ID_EMAIL, REQ_NUM)
-//VALUES(SEQ_COM.nextval, ?, SYSDATE, ?, ?);
+ 

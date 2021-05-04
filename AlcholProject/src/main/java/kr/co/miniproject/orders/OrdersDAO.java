@@ -84,12 +84,18 @@ public class OrdersDAO {
 	public void orderDelete(String idEmail, int orderNum) {
 		conn = JDBC_Connect.getConnection();
 		String sql = JDBC_SQL.deleteOrderList_Email_OrderNum();
+		String sql1 = "DELETE BASKET WHERE ORDER_NUM= ?";
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, idEmail);
 			pstmt.setInt(2, orderNum);
 			rs = pstmt.executeQuery();
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setInt(1, orderNum);
+			pstmt.executeUpdate();
 			System.out.println("주문목록이 삭제되었습니다.");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

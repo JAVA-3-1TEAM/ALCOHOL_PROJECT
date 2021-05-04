@@ -9,8 +9,7 @@ public class CommentRequestVO {
 	private String cContent;
 	String idEmail;
 	String wDate;
-	
-	
+
 	public CommentRequestVO(int reqNum, int comNum, String title, String rContent, String cContent, String idEmail,
 			String wDate) {
 		super();

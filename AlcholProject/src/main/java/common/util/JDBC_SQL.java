@@ -137,7 +137,11 @@ public class JDBC_SQL {
 	}
 	
 	public static String changeReq() {
-		return"UPDATE REQBOARD SET CONTENT = ? WHERE REQ_NUM = ?";
+		return "UPDATE REQBOARD SET CONTENT = ? WHERE REQ_NUM = ?";
+	}
+	
+	public static String changeCom() {
+		return "UPDATE COMMENTS SET CONTENT = ? WHERE COM_NUM = ?";
 	}
 	
 }

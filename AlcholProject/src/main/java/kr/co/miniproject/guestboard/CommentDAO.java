@@ -85,7 +85,6 @@ public class CommentDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, comVO.getContent());
 			pstmt.setInt(2, comVO.getComNum());
-			System.out.println(sql);
 			result = pstmt.executeUpdate();
 			if (result != 0) {
 				System.out.println("답글 수정이 완료되었습니다.");

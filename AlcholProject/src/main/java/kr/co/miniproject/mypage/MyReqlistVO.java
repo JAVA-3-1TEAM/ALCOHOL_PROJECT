@@ -2,7 +2,7 @@ package kr.co.miniproject.mypage;
 
 import java.sql.Date;
 
-public class ReqlistVO {
+public class MyReqlistVO {
 
 	private int reqNum;
 	private String title;
@@ -10,7 +10,7 @@ public class ReqlistVO {
 	private String name;
 	private String wDate;
 
-	public ReqlistVO(int reqNum, String title, String content, String name, String wDate2) {
+	public MyReqlistVO(int reqNum, String title, String content, String name, String wDate2) {
 		super();
 		this.reqNum = reqNum;
 		this.title = title;

@@ -57,7 +57,6 @@ public class AlcoholDAO {
 			int userAlChoice = (Integer.parseInt(br.readLine()));
 			if(userAlChoice == 0)
 				break;
-			System.out.println(userAlChoice);
 			System.out.println("상품의 수량을 입력해주세요");
 			System.out.print(">> ");
 			int userCntChoice = (Integer.parseInt(br.readLine()));

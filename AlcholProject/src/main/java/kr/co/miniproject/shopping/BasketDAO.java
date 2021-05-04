@@ -81,7 +81,6 @@ public class BasketDAO {
 
 	// 장바구니 목록에서 제거하는 메서드
 	public int deletebasket(int alId) {
-		System.out.println(alId);
 		int delresult = 0;
 		try {
 			conn = JDBC_Connect.getConnection();

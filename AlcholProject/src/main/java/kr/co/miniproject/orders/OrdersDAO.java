@@ -51,6 +51,7 @@ public class OrdersDAO {
 		conn = JDBC_Connect.getConnection();
 		String sql = JDBC_SQL.orderTotalPrice_Email();
 		try {
+			if(orderList.size() != 0) {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, idEmail);
 			rs = pstmt.executeQuery();
@@ -58,7 +59,8 @@ public class OrdersDAO {
 			if (rs.next()) {
 				totalPrice = rs.getInt("TOTAL_PRICE");
 			}
-			String id = orderList.get(0).getIdEmail();
+			System.out.println(idEmail);
+			String id = idEmail;
 			String name = orderList.get(0).getName();
 			System.out.println(name + "님(" + id + ")의 장바구니 목록입니다.\n");
 			for (OrdersVO o : orderList) {
@@ -66,7 +68,10 @@ public class OrdersDAO {
 				System.out.println(o);
 			}
 			System.out.println("=============================");
-			System.out.println("총 금액 : " + totalPrice);
+			System.out.println("총 금액 : " + totalPrice); 
+			} else {
+				System.out.println("주문내역이 없습니다.");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

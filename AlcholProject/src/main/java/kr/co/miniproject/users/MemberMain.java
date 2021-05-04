@@ -28,9 +28,11 @@ public class MemberMain {
 	
 	public MemberVO login() throws IOException{
 		System.out.println("아이디 입력 : ");
-		String email = br.readLine();
+//		String email = br.readLine();
 		System.out.println("패스워드 입력 : ");
-		String pwd = br.readLine();
+//		String pwd = br.readLine();
+		String email = "abc@gmail.com";
+		String pwd = "test1234";
 		MemberVO mvo = dao.selectOne(email, pwd);
 		return mvo;
 	}

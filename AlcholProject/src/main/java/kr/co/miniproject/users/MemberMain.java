@@ -31,8 +31,8 @@ public class MemberMain {
 //		String email = br.readLine();
 		System.out.println("패스워드 입력 : ");
 //		String pwd = br.readLine();
-		String email = "abc@gmail.com";
-		String pwd = "test1234";
+		String email = "test@naver.com";
+		String pwd = "test";
 		MemberVO mvo = dao.selectOne(email, pwd);
 		return mvo;
 	}

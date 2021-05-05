@@ -20,7 +20,7 @@ public class MenuScreen {
 	public void loginSuccess(MemberVO mvo) {
 		System.out.println("=================================== Header ===================================");
 		System.out.println(mvo.getName() + "님 환영합니다.~~");
-		System.out.println("==== 1. 주류 목록 확인 | 2. 장바구니 확인 | 3. MYPAGE | 4. 문의하기 | 5. 프로그램 종료 ====");
+		System.out.println("==== 1. 주류 목록 확인 | 2. 장바구니 확인 | 3. MYPAGE | 4. 문의하기 | 5. 로그 아웃 ====");
 		System.out.println("==============================================================================");
 	}
 	

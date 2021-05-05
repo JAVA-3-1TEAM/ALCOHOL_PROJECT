@@ -12,9 +12,10 @@ import java.util.List;
 import common.util.JDBC_Close;
 import common.util.JDBC_Connect;
 import common.util.JDBC_SQL;
+import kr.co.miniproject.menu.ShoppingScreen;
 
 public class AlcoholDAO {
-
+	ShoppingScreen shopScreen= new ShoppingScreen();
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -50,8 +51,9 @@ public class AlcoholDAO {
 		int cnt = 0;
 		while (true) {
 			for (AlcoholVO al : alList) {
-				System.out.println(al);
+				shopScreen.alcoholAll(al);
 			}
+			shopScreen.endLine();
 			System.out.println("장바구니에 추가를 원하는 상품번호를 입력해주세요. 뒤로 가시려면 0번을 눌러주세요.");
 			System.out.print(">> ");
 			int userAlChoice = (Integer.parseInt(br.readLine()));
@@ -60,6 +62,11 @@ public class AlcoholDAO {
 			System.out.println("상품의 수량을 입력해주세요");
 			System.out.print(">> ");
 			int userCntChoice = (Integer.parseInt(br.readLine()));
+			while(userCntChoice == 0) {
+				System.out.println("잘못된 수량을 입력하셨습니다. 다시 입력해주세요.");
+				System.out.print(">> ");
+				userCntChoice = (Integer.parseInt(br.readLine()));
+			}
 			BasketVO addBasketVO = new BasketVO(Email, userAlChoice, userCntChoice);
 			cnt += basketDAO.insertBasket(Email,addBasketVO);
 		}

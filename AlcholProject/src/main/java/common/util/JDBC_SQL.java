@@ -132,7 +132,7 @@ public class JDBC_SQL {
 	
 	public static String showReqCom() {
 		return "SELECT C.REQ_NUM AS \"문의번호\", R.TITLE as \"문의제목\", R.CONTENT AS \"문의내용\",C.COM_NUM AS \"답글번호\", C.CONTENT AS \"답글내용\", C.ID_EMAIL AS \"작성자\", R.W_DATE AS \"문의접수일\" "
-				+ "FROM COMMENTS C, REQBOARD R WHERE R.REQ_NUM = C.REQ_NUM AND R.ID_EMAIL = ? "
+				+ "FROM COMMENTS C, REQBOARD R WHERE R.REQ_NUM = C.REQ_NUM "
 				+ "ORDER BY C.REQ_NUM ";
 	} 
 	

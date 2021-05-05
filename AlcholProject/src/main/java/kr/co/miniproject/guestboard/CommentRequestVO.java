@@ -1,7 +1,7 @@
 package kr.co.miniproject.guestboard;
 
 public class CommentRequestVO {
-	//req_num, com_num, content, id_email, date,
+	// req_num, com_num, content, id_email, date,
 	private int reqNum;
 	private int comNum;
 	private String title;
@@ -14,7 +14,7 @@ public class CommentRequestVO {
 			String wDate) {
 		super();
 		this.reqNum = reqNum;
-		this.comNum = comNum; 
+		this.comNum = comNum;
 		this.title = title;
 		this.rContent = rContent;
 		this.cContent = cContent;
@@ -70,7 +70,6 @@ public class CommentRequestVO {
 		this.comNum = comNum;
 	}
 
-	
 	public String getIdEmail() {
 		return idEmail;
 	}
@@ -87,15 +86,21 @@ public class CommentRequestVO {
 		this.wDate = wDate;
 	}
 
+//	@Override
+//	public String toString() {
+//		return "문의번호: "+reqNum+
+//				", 작성자: "+idEmail+", 문의접수일: "+wDate+
+//				"\n문의제목: "+
+//				"\n문의내용: "+rContent+"\n---------------------------------------"+
+//				"\n답글번호: "+comNum+"\n문의답글: "+cContent
+//				;
+//		
+//	}
+
 	@Override
 	public String toString() {
-		return "문의번호: "+reqNum+
-				", 작성자: "+idEmail+", 문의접수일: "+wDate+
-				"\n문의제목: "+
-				"\n문의내용: "+rContent+"\n---------------------------------------"+
-				"\n답글번호: "+comNum+"\n문의답글: "+cContent
-				;
-		
+		return "\n답글번호: " + comNum + "\n문의답글: " + cContent;
+
 	}
 
 }

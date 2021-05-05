@@ -18,7 +18,8 @@ public class ReqboardDAO {
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	Scanner scanner = new Scanner(System.in);
-	
+	CommentDAO comDao = new CommentDAO();
+
 	public int insertReq(ReqboardVO reqVO) {
 		int result = 0;
 		try {
@@ -98,6 +99,20 @@ public class ReqboardDAO {
 			JDBC_Close.closeConnStmt(conn, pstmt);
 		}
 		return result;
+	}
+	
+	public void showReqAndCom(int reqNum) {
+		comDao = new CommentDAO();
+		List<CommentRequestVO> crList = comDao.selectComReqAll(reqNum);
+		if (crList.size() != 0) {
+			for (CommentRequestVO crvo : crList) {
+				System.out.println("===================================");
+				System.out.println(crvo);
+			}
+			System.out.println("===================================");
+		} else {
+			System.out.println("아직 답변이 없습니다.");
+		}
 	}
 	
 }

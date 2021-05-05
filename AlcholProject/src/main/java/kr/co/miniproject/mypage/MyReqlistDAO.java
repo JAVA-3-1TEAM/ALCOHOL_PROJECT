@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import common.util.JDBC_Close;
 import common.util.JDBC_Connect;
@@ -25,7 +26,7 @@ public class MyReqlistDAO {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-
+	Scanner scanner = new Scanner(System.in);
 	static ReqboardDAO reqDao = new ReqboardDAO();
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static CommentDAO comDao = new CommentDAO();
@@ -39,7 +40,6 @@ public class MyReqlistDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, idEmail);
 			rs = pstmt.executeQuery();
-
 			reqList = new ArrayList<MyReqlistVO>();
 			while (rs.next()) {
 				/*
@@ -54,12 +54,6 @@ public class MyReqlistDAO {
 				MyReqlistVO rvo = new MyReqlistVO(reqNum, title, content, name, wDate);
 				reqList.add(rvo);
 			}
-
-			for (MyReqlistVO rvo : reqList) {
-				System.out.println("=========================================================");
-				System.out.println(rvo);
-			}
-			System.out.println("=========================================================");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -133,6 +127,17 @@ public class MyReqlistDAO {
 		}
 	}
 
+	public void myReqComPrint(List<?> list) {
+		List<?> printDate = list;
+
+		for (Object l : printDate) {
+			System.out.println("=========================================================");
+			System.out.println(l);
+		}
+		System.out.println("=========================================================");
+
+	}
+
 	public static void chgComWrite() throws IOException {
 		System.out.println("변경할 답글 번호: ");
 		int comNum = Integer.parseInt(br.readLine());
@@ -162,5 +167,48 @@ public class MyReqlistDAO {
 		MemberVO membervo = new MemberVO(Email, chgpwd);
 		int cnt = dao.updatePwd(membervo);
 		return cnt;
+	}
+
+	public void selectMyMenu(int select, String idEmail) throws IOException {
+		switch (select) {
+		case 1:
+			while (true) {
+				List<MyReqlistVO> reqList = myRequestList(idEmail);
+				myReqComPrint(reqList);
+				System.out.println("삭제하실 글의 번호를 입력해주세요. 뒤로가기는 0번을 입력하세요.");
+				int choice = scanner.nextInt();
+				if (choice != 0) {
+					myRequestDelete(idEmail, choice);
+					System.out.println("글이 삭제되었습니다.");
+				} else {
+					break;
+				}
+			}
+			break;
+		case 2:
+			while (true) {
+				List<CommentVO> comList = myCommentsList(idEmail);
+				System.out.println("삭제하실 댓글의 번호를 입력해주세요. 뒤로가기는 0번을 입력하세요.");
+				int choice = scanner.nextInt();
+				if (choice != 0) {
+					myCommentDelete(idEmail, choice);
+					System.out.println("댓글이 삭제되었습니다.");
+				} else {
+					break;
+				}
+			}
+			break;
+		case 3:
+			int result = chgPwd(idEmail);
+			if (result != 0) {
+				System.out.println("비밀번호 변경이 완료되었습니다. 이전 페이지로 이동합니다.");
+			}
+			break;
+		case 4:
+			break;
+		default:
+			System.out.println("입력한 값이 잘못되었습니다. 뒤로 이동합니다.");
+			break;
+		}
 	}
 }

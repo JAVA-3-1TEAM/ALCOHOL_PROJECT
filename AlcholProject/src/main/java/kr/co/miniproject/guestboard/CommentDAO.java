@@ -10,25 +10,22 @@ import java.util.Scanner;
 import common.util.JDBC_Close;
 import common.util.JDBC_Connect;
 import common.util.JDBC_SQL;
+import common.util.LoginMember;
 
 public class CommentDAO {
 
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
-
+	String idEmail = LoginMember.loginId;
 	public int insertOne(CommentVO comVO) {
 		int result = 0;
 		try {
 			conn = JDBC_Connect.getConnection();
-			// INSERT INTO COMMENTS(COM_NUM, CONTENT, COM_DATE, ID_EMAIL, REQ_NUM)
-			// VALUES(SEQ_COM.nextval, ?, SYSDATE, ?, ?);
 			String sql = JDBC_SQL.writeComment();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, comVO.getContent());
-			// 글쓴 사람의 아이디 가져오기 -> 현재 임의로 생성
 			String comIdEmailTest = "admin@test.com";
-			pstmt.setString(2, comIdEmailTest);
-			// req넘버 선택하는 번호 그대로 가져올 수 있도록.
+			pstmt.setString(2, comVO.getIdEmail());
 			pstmt.setInt(3, comVO.getReqNum());
 			result = pstmt.executeUpdate();
 			if (result != 0) {
@@ -52,9 +49,6 @@ public class CommentDAO {
 			conn = JDBC_Connect.getConnection();
 			String sql = JDBC_SQL.showReqCom();
 			pstmt = conn.prepareStatement(sql);
-
-			String testEmail = "abc@gmail.com";
-			pstmt.setString(1, testEmail);
 			rs = pstmt.executeQuery();
 			crList = new ArrayList<CommentRequestVO>();
 			while (rs.next()) {

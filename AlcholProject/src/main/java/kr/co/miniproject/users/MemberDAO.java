@@ -62,14 +62,8 @@ public class MemberDAO {
 					MemberVO mvo = new MemberVO(email, pwd, name, birth, phone);
 					return mvo;
 				}
-//				else {
-//					System.out.println("==================================");
-//					System.out.println("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
-//				}
 			}
-//			else {
-//				System.out.println("아이디와 비밀번호를 다시 확인해주세요.");
-//			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -78,22 +72,21 @@ public class MemberDAO {
 
 		return null;
 	}
-	
-	
-	//비밀번호 바꾸는 쿼리문이 들어있는 DAO 메소드
+
+	// 비밀번호 바꾸는 쿼리문이 들어있는 DAO 메소드
 	public int updatePwd(MemberVO membervo) {
 		int result = 0;
 		try {
 			conn = JDBC_Connect.getConnection();
 			String sql = JDBC_SQL.changePwd();
 			pstmt = conn.prepareStatement(sql);
-			//Email은 메서드로 가져와서 값을 받아야함. 현재상태에서는 임의 이메일 주소 설정.
+			// Email은 메서드로 가져와서 값을 받아야함. 현재상태에서는 임의 이메일 주소 설정.
 			String idEmail = "abc@gmail.com";
 			pstmt.setString(1, membervo.getPwd());
 			pstmt.setString(2, idEmail);
 			System.out.println(sql);
 			result = pstmt.executeUpdate();
-			if(result != 0) {
+			if (result != 0) {
 				System.out.println("비밀번호 변경이 완료되었습니다.");
 			}
 		} catch (Exception e) {
@@ -103,6 +96,6 @@ public class MemberDAO {
 		}
 		System.out.println("리턴 직전");
 		return result;
-		
+
 	}
 }

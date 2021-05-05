@@ -11,10 +11,12 @@ import java.util.Scanner;
 import common.util.JDBC_Close;
 import common.util.JDBC_Connect;
 import common.util.JDBC_SQL;
+import kr.co.miniproject.menu.ShoppingScreen;
 
 public class BasketDAO {
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
+	ShoppingScreen shopScreen = new ShoppingScreen();
 	ResultSet rs = null;
 	Scanner scanner = new Scanner(System.in);
 
@@ -59,17 +61,18 @@ public class BasketDAO {
 			int totalPrice = 0;
 			if (rs.next()) {
 				totalPrice = rs.getInt("TOTAL_PRICE");
+				if(totalPrice ==0) {
+					return null;
+				}
 			}
-			String id = basketList.get(0).getIdEmail();
 			String name = basketList.get(0).getName();
-			System.out.println(name + "님(" + id + ")의 장바구니 목록입니다.\n");
+			System.out.println(name + "님(" + idEmail + ")의 장바구니 목록입니다.\n");
 
 			for (BasketVO b : basketList) {
-				System.out.println("=============================");
-				System.out.println(b);
+				shopScreen.BasketAll(b);
 				basketNum.add(b.getAlId());
 			}
-			System.out.println("=============================");
+			shopScreen.endLine();
 			System.out.println("총 금액 : " + totalPrice);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -109,6 +112,7 @@ public class BasketDAO {
 			pstmt.setInt(2, basketaddVO.getAlId());
 			pstmt.setInt(3, basketaddVO.getCntNumber());
 
+			System.out.println(Email);
 			result = pstmt.executeUpdate();
 
 		} catch (Exception e) {
@@ -134,11 +138,12 @@ public class BasketDAO {
 			pstmt.setString(1, Email);
 			pstmt.setString(2, address);
 			check = pstmt.executeUpdate();
-			if(check ==0) {
+			if (check == 0) {
 				System.out.println("잘못된 정보입니다. 이전페이지로 이동합니다.");
 				return;
 			}
-
+			
+			// 생성된 주문목록에서 orderNum가져오기.
 			sql = JDBC_SQL.selectOrderNum_idEmail();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, Email);
@@ -146,13 +151,14 @@ public class BasketDAO {
 			if (rs.next()) {
 				orderNum = rs.getInt("ORDER_NUM");
 			}
-
+			
+			// 주문목록에서 가져온 orderNum을 장바구니 컬럼에 추가.
 			sql = JDBC_SQL.updateBasket_orderNumIdEmail();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, orderNum);
 			pstmt.setString(2, Email);
 			check = pstmt.executeUpdate();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

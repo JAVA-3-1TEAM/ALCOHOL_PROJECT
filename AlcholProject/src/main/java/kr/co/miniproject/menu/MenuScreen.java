@@ -3,11 +3,17 @@ package kr.co.miniproject.menu;
 import kr.co.miniproject.users.MemberVO;
 
 public class MenuScreen {
+	// 로그인 에러 메세지
+	public static void loginErr() {
+		System.out.println("회원가입중 오류가 발생하였습니다. 다시 실행해주세요.");
+		System.out.println("문제가 지속적으로 발생하면 고객센터에 문의해주세요.");
+	}
+	
 	public static void mainScreen() {
-		System.out.println("-------- ALCOHOL 구매 서비스 --------");
-		System.out.println("============== Home ==============");
-		System.out.println("== 1. 회원가입   2. 로그인   3. 종료 ==");
-		System.out.println("==================================");
+		System.out.println("======== ALCOHOL 구매 서비스 ========\n");
+		System.out.println("______________ Home ______________\n");
+		System.out.println("1. 회원가입\n2. 로그인\n3. 종료");
+		System.out.println("__________________________________");
 
 	}
 	
@@ -49,6 +55,14 @@ public class MenuScreen {
 		System.out.println("======================= 장바구니 =======================================");
 		System.out.println("======== 1. 추가 주문  |  2. 품목 삭제  |  3. 주문하기  |  4. 뒤로가기 ========");
 		System.out.println("======================================================================");
+	}
+	
+	// guestboard
+	public void reqBoardMessage() {
+		System.out.println("=============== 문의게시판 ===============");
+		System.out.println("1. 문의글 목록 2. 새 문의글 쓰기 3. 돌아가기");
+		System.out.println("=======================================");
+
 	}
 	
 }

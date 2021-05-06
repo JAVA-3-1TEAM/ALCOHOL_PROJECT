@@ -81,20 +81,19 @@ public class MemberDAO {
 			String sql = JDBC_SQL.changePwd();
 			pstmt = conn.prepareStatement(sql);
 			// Email은 메서드로 가져와서 값을 받아야함. 현재상태에서는 임의 이메일 주소 설정.
-			String idEmail = "abc@gmail.com";
 			pstmt.setString(1, membervo.getPwd());
-			pstmt.setString(2, idEmail);
+			pstmt.setString(2, membervo.getId_email());
 			System.out.println(sql);
 			result = pstmt.executeUpdate();
 			if (result != 0) {
 				System.out.println("비밀번호 변경이 완료되었습니다.");
+				System.out.println("변경된 비밀번호는 : " + membervo.getPwd()+ "입니다.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			JDBC_Close.closeConnStmt(conn, pstmt);
 		}
-		System.out.println("리턴 직전");
 		return result;
 
 	}

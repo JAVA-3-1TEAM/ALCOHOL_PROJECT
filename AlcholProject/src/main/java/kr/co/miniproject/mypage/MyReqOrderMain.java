@@ -12,7 +12,7 @@ import kr.co.miniproject.orders.OrdersMain;
 public class MyReqOrderMain {
 	Scanner scanner = new Scanner(System.in);
 	OrdersMain ordersMain = new OrdersMain();
-	
+
 	public void myReqMain() throws IOException {
 		MenuScreen mc = new MenuScreen();
 		String idEmail = LoginMember.loginId;

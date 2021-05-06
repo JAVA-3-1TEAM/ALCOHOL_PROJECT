@@ -12,6 +12,8 @@ import common.util.JDBC_Close;
 import common.util.JDBC_Connect;
 import common.util.JDBC_SQL;
 import kr.co.miniproject.menu.ShoppingScreen;
+import kr.co.miniproject.orders.OrdersDAO;
+import kr.co.miniproject.orders.OrdersVO;
 
 public class BasketDAO {
 	private Connection conn = null;
@@ -19,6 +21,7 @@ public class BasketDAO {
 	ShoppingScreen shopScreen = new ShoppingScreen();
 	ResultSet rs = null;
 	Scanner scanner = new Scanner(System.in);
+	OrdersDAO oDAO = new OrdersDAO();
 
 	public List<BasketVO> basketList(String idEmail) {
 		List<BasketVO> basketList = new ArrayList<BasketVO>();
@@ -61,7 +64,7 @@ public class BasketDAO {
 			int totalPrice = 0;
 			if (rs.next()) {
 				totalPrice = rs.getInt("TOTAL_PRICE");
-				if(totalPrice ==0) {
+				if (totalPrice == 0) {
 					return null;
 				}
 			}
@@ -81,6 +84,7 @@ public class BasketDAO {
 		}
 		return basketNum;
 	}
+
 
 	// 장바구니 목록에서 제거하는 메서드
 	public int deletebasket(int alId) {
@@ -142,7 +146,7 @@ public class BasketDAO {
 				System.out.println("잘못된 정보입니다. 이전페이지로 이동합니다.");
 				return;
 			}
-			
+
 			// 생성된 주문목록에서 orderNum가져오기.
 			sql = JDBC_SQL.selectOrderNum_idEmail();
 			pstmt = conn.prepareStatement(sql);
@@ -151,14 +155,17 @@ public class BasketDAO {
 			if (rs.next()) {
 				orderNum = rs.getInt("ORDER_NUM");
 			}
-			
+
 			// 주문목록에서 가져온 orderNum을 장바구니 컬럼에 추가.
 			sql = JDBC_SQL.updateBasket_orderNumIdEmail();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, orderNum);
 			pstmt.setString(2, Email);
 			check = pstmt.executeUpdate();
-
+			
+			List<OrdersVO> orderList= oDAO.orderList(Email, orderNum);
+			oDAO.printOrderList(Email, orderList, orderNum);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

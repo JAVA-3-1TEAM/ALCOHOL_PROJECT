@@ -174,13 +174,18 @@ public class MyReqlistDAO {
 		case 1:
 			while (true) {
 				List<MyReqlistVO> reqList = myRequestList(idEmail);
-				myReqComPrint(reqList);
-				System.out.println("삭제하실 글의 번호를 입력해주세요. 뒤로가기는 0번을 입력하세요.");
-				int choice = scanner.nextInt();
-				if (choice != 0) {
-					myRequestDelete(idEmail, choice);
-					System.out.println("글이 삭제되었습니다.");
+				if (reqList.size() != 0) {
+					myReqComPrint(reqList);
+					System.out.println("삭제하실 글의 번호를 입력해주세요. 뒤로가기는 0번을 입력하세요.");
+					int choice = scanner.nextInt();
+					if (choice != 0) {
+						myRequestDelete(idEmail, choice);
+						System.out.println("글이 삭제되었습니다.");
+					} else {
+						break;
+					}
 				} else {
+					System.out.println("작성하신 글이 없습니다. 이전페이지로 돌아갑니다.");
 					break;
 				}
 			}
@@ -188,12 +193,17 @@ public class MyReqlistDAO {
 		case 2:
 			while (true) {
 				List<CommentVO> comList = myCommentsList(idEmail);
-				System.out.println("삭제하실 댓글의 번호를 입력해주세요. 뒤로가기는 0번을 입력하세요.");
-				int choice = scanner.nextInt();
-				if (choice != 0) {
-					myCommentDelete(idEmail, choice);
-					System.out.println("댓글이 삭제되었습니다.");
+				if (comList.size() != 0) {
+					System.out.println("삭제하실 댓글의 번호를 입력해주세요. 뒤로가기는 0번을 입력하세요.");
+					int choice = scanner.nextInt();
+					if (choice != 0) {
+						myCommentDelete(idEmail, choice);
+						System.out.println("댓글이 삭제되었습니다.");
+					} else {
+						break;
+					}
 				} else {
+					System.out.println("작성하신 댓글이 없습니다. 이전페이지로 돌아갑니다.");
 					break;
 				}
 			}

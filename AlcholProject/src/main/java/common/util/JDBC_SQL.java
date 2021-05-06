@@ -13,7 +13,7 @@ public class JDBC_SQL {
 	public static String userOrderList_EmailOrderNum() {
 		return "SELECT O.ORDER_NUM AS ORDER_NUM,M.ID_EMAIL, M.NAME, M.PHONE,  O.ADDRESS,\n"
 				+ "				A2.AL_NAME, B.CNT_NUMBER, B.CNT_NUMBER * A2.AL_PRICE AS 가격,\n"
-				+ "				TO_CHAR(O.ORGDATE,'MM-DD') AS ORGDATE\n"
+				+ "				TO_CHAR(O.ORGDATE,'YYYY-MM-DD') AS ORGDATE\n"
 				+ "                FROM MEMBERS M INNER JOIN ORDERS O\n"
 				+ "                    ON M.ID_EMAIL = O.ID_EMAIL\n" + "                INNER JOIN BASKET B\n"
 				+ "                    ON O.ORDER_NUM = B.ORDER_NUM\n" + "                INNER JOIN ALCOHOL A2\n"

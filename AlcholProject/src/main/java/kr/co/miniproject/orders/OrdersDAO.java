@@ -10,13 +10,14 @@ import java.util.List;
 import common.util.JDBC_Close;
 import common.util.JDBC_Connect;
 import common.util.JDBC_SQL;
+import kr.co.miniproject.menu.OrdersScreen;
 import kr.co.miniproject.shopping.BasketVO;
 
 public class OrdersDAO {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
-
+	OrdersScreen ordersScreen = new OrdersScreen();
 	public List<OrdersVO> orderList(String idEmail, int orderNum) {
 		List<OrdersVO> orderList = new ArrayList<OrdersVO>();
 		conn = JDBC_Connect.getConnection();
@@ -61,15 +62,7 @@ public class OrdersDAO {
 				if (rs.next()) {
 					totalPrice = rs.getInt("TOTAL_PRICE");
 				}
-				String id = idEmail;
-				String name = orderList.get(0).getName();
-				System.out.println(name + "님(" + id + ")의 주문하신 목록입니다.\n");
-				for (OrdersVO o : orderList) {
-					System.out.println("=============================");
-					System.out.println(o);
-				}
-				System.out.println("=============================");
-				System.out.println("총 금액 : " + totalPrice);
+				ordersScreen.ordersAll(orderList, totalPrice);
 			} else {
 				System.out.println("주문내역이 없습니다.");
 			}
@@ -111,7 +104,6 @@ public class OrdersDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, Email);
 			rs = pstmt.executeQuery();
-			System.out.println("장바구니 olderNum 전송");
 			while(rs.next()) {
 				int orderNum = rs.getInt("ORDER_NUM");
 				orderNumList.add(orderNum);

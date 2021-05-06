@@ -39,7 +39,7 @@ public class MenuScreen {
 	}
 	
 	public void orderDeleteMessage() {
-		System.out.println("===================== 주문하기 =========================");
+		System.out.println("===================== 주문 =========================");
 		System.out.println("======== 1. 주문 내역  |  2. 주문 취소 |  3. 종료 ========");
 		System.out.println("=====================================================");
 	}

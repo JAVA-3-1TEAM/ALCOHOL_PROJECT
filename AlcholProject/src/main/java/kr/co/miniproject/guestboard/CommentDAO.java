@@ -24,7 +24,6 @@ public class CommentDAO {
 			String sql = JDBC_SQL.writeComment();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, comVO.getContent());
-			String comIdEmailTest = "admin@test.com";
 			pstmt.setString(2, comVO.getIdEmail());
 			pstmt.setInt(3, comVO.getReqNum());
 			result = pstmt.executeUpdate();

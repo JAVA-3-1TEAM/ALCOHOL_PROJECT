@@ -9,6 +9,11 @@ public class JDBC_SQL {
 		return "SELECT * FROM MEMBERS WHERE ID_EMAIL=?";
 	}
 
+	// 아이디 중복 확인
+	public static String signUpIdOverlab_IdEmail() {
+		return "SELECT * FROM MEMBERS WHERE ID_EMAIL =?";
+	}
+
 	// 특정 사용자에 대한 주문내역 보여주기. -> ORDER_NUM 컬럼으로 조(수정필요)
 	public static String userOrderList_EmailOrderNum() {
 		return "SELECT O.ORDER_NUM AS ORDER_NUM,M.ID_EMAIL, M.NAME, M.PHONE,  O.ADDRESS,\n"
@@ -17,7 +22,8 @@ public class JDBC_SQL {
 				+ "                FROM MEMBERS M INNER JOIN ORDERS O\n"
 				+ "                    ON M.ID_EMAIL = O.ID_EMAIL\n" + "                INNER JOIN BASKET B\n"
 				+ "                    ON O.ORDER_NUM = B.ORDER_NUM\n" + "                INNER JOIN ALCOHOL A2\n"
-				+ "                    ON B.AL_ID = A2.AL_ID\n" + "                WHERE M.ID_EMAIL = ? AND O.ORDER_NUM =?";
+				+ "                    ON B.AL_ID = A2.AL_ID\n"
+				+ "                WHERE M.ID_EMAIL = ? AND O.ORDER_NUM =?";
 	}
 
 	// 주문테이블 토탈금액
@@ -26,7 +32,8 @@ public class JDBC_SQL {
 				+ "				FROM MEMBERS M INNER JOIN BASKET B\n"
 				+ "				    on M.ID_EMAIL = B.ID_EMAIL\n"
 				+ "				INNER JOIN ALCOHOL A2 on B.AL_ID = A2.AL_ID\n" + "				INNER JOIN ORDERS O\n"
-				+ "				   on B.ORDER_NUM = O.ORDER_NUM\n" + "				WHERE M.ID_EMAIL = ? AND O.ORDER_NUM =?)";
+				+ "				   on B.ORDER_NUM = O.ORDER_NUM\n"
+				+ "				WHERE M.ID_EMAIL = ? AND O.ORDER_NUM =?)";
 	}
 
 	// 주문목록 삭제
@@ -39,6 +46,15 @@ public class JDBC_SQL {
 		return "select B.BASKET_NUM, B.ID_EMAIL, M.NAME, A2.AL_ID, A2.AL_NAME,B.CNT_NUMBER, B.CNT_NUMBER * A2.AL_PRICE AS PRICE\n"
 				+ "from BASKET B INNER JOIN ALCOHOL A2\n" + "    on B.AL_ID = A2.AL_ID\n" + "INNER JOIN MEMBERS M\n"
 				+ "    on B.ID_EMAIL = M.ID_EMAIL\n" + "WHERE M.ID_EMAIL = ? AND ORDER_NUM = 0";
+	}
+	// 장바구니에 담으려는 아이템이 이미 존재하는지 확인
+	public static String selectBaksetAlId_AlId() {
+		return "SELECT * FROM BASKET WHERE AL_id = ? AND ORDER_NUM = 0";
+	}
+	
+	// 장바구니에 수량 변경 
+	public static String updateBasketCntNum_addCnt_AlId() {
+		return "UPDATE BASKET SET CNT_NUMBER = CNT_NUMBER+? WHERE AL_ID = ? AND ORDER_NUM = 0";
 	}
 
 	// 장바구니 테이블 토탈금액
@@ -73,6 +89,7 @@ public class JDBC_SQL {
 	public static String selectOrderNum_IdEmail() {
 		return "select distinct ORDER_NUM from ORDERS WHERE ORDER_NUM NOT IN 0 AND ID_EMAIL =?";
 	}
+
 	public static String show_alList() {
 		return "SELECT AL_ID, AL_NAME, AL_TYPE, AL_PRICE FROM ALCOHOL WHERE AL_TYPE = ? ";
 	}
@@ -129,24 +146,21 @@ public class JDBC_SQL {
 		return "SELECT * FROM REQBOARD ORDER BY W_DATE DESC";
 	}
 
-	
 	public static String showReqCom() {
 		return "SELECT C.REQ_NUM AS \"문의번호\", R.TITLE as \"문의제목\", R.CONTENT AS \"문의내용\",C.COM_NUM AS \"답글번호\", C.CONTENT AS \"답글내용\", C.ID_EMAIL AS \"작성자\", R.W_DATE AS \"문의접수일\" "
-				+ "FROM COMMENTS C, REQBOARD R WHERE R.REQ_NUM = C.REQ_NUM "
-				+ "ORDER BY C.REQ_NUM ";
-	} 
-	
-	public static String changePwd() {
-		return "UPDATE MEMBERS SET PWD = ? "
-				+ "WHERE ID_EMAIL = ? ";
+				+ "FROM COMMENTS C, REQBOARD R WHERE R.REQ_NUM = C.REQ_NUM " + "ORDER BY C.REQ_NUM ";
 	}
-	
+
+	public static String changePwd() {
+		return "UPDATE MEMBERS SET PWD = ? " + "WHERE ID_EMAIL = ? ";
+	}
+
 	public static String changeReq() {
 		return "UPDATE REQBOARD SET CONTENT = ? WHERE REQ_NUM = ?";
 	}
-	
+
 	public static String changeCom() {
 		return "UPDATE COMMENTS SET CONTENT = ? WHERE COM_NUM = ?";
 	}
-	
+
 }

@@ -15,19 +15,24 @@ public class MemberMain {
 	public void signUp() throws IOException {
 		System.out.println("회원가입을 진행합니다.");
 		System.out.println("이메일 입력 : ");
+		System.out.print(">> ");
 		String email = br.readLine();
 		if(!dao.overlabId(email)) {
 			System.out.println("중복된 아이디입니다. 이전 페이지로 이동합니다.");
 			return;
 		}
 		System.out.println("패스워드 입력 : ");
+		System.out.print(">> ");
 		String pwd = br.readLine();
 		System.out.println("이름 입력 : ");
+		System.out.print(">> ");
 		String name = br.readLine();
 		System.out.println("생년월일 입력(19990101 형식으로 입력해주세요.) : ");
+		System.out.print(">> ");
 		String birth = br.readLine();
 		if (dao.checkBirth(birth)) {
 			System.out.println("전화번호 입력 : ");
+			System.out.print(">> ");
 			String phone = br.readLine();
 			MemberVO mvo = new MemberVO(email, pwd, name, birth, phone);
 			dao.insertOne(mvo);
@@ -40,8 +45,10 @@ public class MemberMain {
 
 	public MemberVO login() throws IOException {
 		System.out.println("아이디 입력 : ");
+		System.out.print(">> ");
 		String email = br.readLine();
 		System.out.println("패스워드 입력 : ");
+		System.out.print(">> ");
 		String pwd = br.readLine();
 		MemberVO mvo = dao.selectOne(email, pwd);
 		return mvo;

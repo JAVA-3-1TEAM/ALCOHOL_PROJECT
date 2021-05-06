@@ -25,7 +25,7 @@ public class OrdersMain {
 			case 1:
 				orderNumList = orderDAO.addOrderNumList(idEmail);
 				if (orderNumList.size() != 0) {
-					System.out.println("=============== 주문 목록 ===============");
+					System.out.println("______________ 주문 목록 ______________");
 					for (int a : orderNumList) {
 						System.out.println("주문번호 : " + a + "번");
 					}
@@ -44,7 +44,7 @@ public class OrdersMain {
 			case 2:
 				orderNumList = orderDAO.addOrderNumList(idEmail);
 				if (orderNumList.size() != 0) {
-					System.out.println("=============== 주문 목록 ===============");
+					System.out.println("______________ 주문 목록 ______________");
 					for (int a : orderNumList) {
 						System.out.println("주문번호 : " + a + "번");
 					}

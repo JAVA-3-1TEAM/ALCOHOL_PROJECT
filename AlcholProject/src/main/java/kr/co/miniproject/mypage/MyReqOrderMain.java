@@ -23,11 +23,9 @@ public class MyReqOrderMain {
 			if (selectMypage == 1) {
 				ordersMain.order();
 			} else if (selectMypage == 2) {
-				System.out.println(
-						"==========================================================================================");
-				System.out.println("============= 1. 내가 작성한 글 == 2. 내가 작성한 댓글 == 3. 비밀번호 변경 == 4. 뒤로가기 =============");
-				System.out.println(
-						"==========================================================================================");
+				System.out.println("____________________________________\n");
+				System.out.println("1. 내가 작성한 글\n2. 내가 작성한 댓글\n3. 비밀번호 변경\n4. 뒤로가기\n");
+				System.out.println("____________________________________");
 				int select = scanner.nextInt();
 				rdao.selectMyMenu(select, idEmail);
 			} else if (selectMypage == 3) {

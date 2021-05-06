@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 import common.util.LoginMember;
 import kr.co.miniproject.menu.MenuScreen;
+import kr.co.miniproject.menu.ReqboardScreen;
 
 public class ReqboardMain {
 	// BufferedReaderr이용하기
@@ -16,6 +17,7 @@ public class ReqboardMain {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static CommentDAO comDao = new CommentDAO();
 	static MenuScreen mc = new MenuScreen();
+	static ReqboardScreen reqboardScreen = new ReqboardScreen();
 
 	public static void writeNewReqOrCom() throws IOException {
 		String idEmail = LoginMember.loginId;
@@ -27,12 +29,8 @@ public class ReqboardMain {
 			if (guestAnswer == 1) {
 				while (true) {
 					List<ReqboardVO> reqlistVO = reqDao.selectAllReq();
-					System.out.println("<문의글 목록>");
-					for (ReqboardVO vo : reqlistVO) {
-						System.out.println(vo);
-						reqNumList.add(vo.getReq_num());
-					}
-					System.out.println("1. 답변확인  2. 답변작성  3. 뒤로이동");
+					reqNumList = reqboardScreen.reqAll(reqlistVO);
+					reqboardScreen.reqComQuestion();
 					int choice = scanner.nextInt();
 					if (choice == 1) {
 						System.out.println("답글을 보실 글 번호를 선택해주세요.");
@@ -40,7 +38,7 @@ public class ReqboardMain {
 						if (reqNumList.contains(selectComment)) {
 							for (ReqboardVO vo : reqlistVO) {
 								if (vo.getReq_num() == selectComment) {
-									System.out.println(vo);
+									reqboardScreen.reqSelect(vo);
 								}
 							}
 							reqDao.showReqAndCom(selectComment);
@@ -89,8 +87,10 @@ public class ReqboardMain {
 				while (true) {
 					System.out.println("==========문의글 작성하기==========");
 					System.out.print("제목: ");
+					System.out.println(">> ");
 					String title = br.readLine();
 					System.out.print("내용 입력: ");
+					System.out.println(">> ");
 					String content = br.readLine();
 					if (title.length() == 0 || content.length() == 0) {
 						System.out.println("제목과 내용을 작성해주세요");

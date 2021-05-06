@@ -86,16 +86,6 @@ public class CommentRequestVO {
 		this.wDate = wDate;
 	}
 
-//	@Override
-//	public String toString() {
-//		return "문의번호: "+reqNum+
-//				", 작성자: "+idEmail+", 문의접수일: "+wDate+
-//				"\n문의제목: "+
-//				"\n문의내용: "+rContent+"\n---------------------------------------"+
-//				"\n답글번호: "+comNum+"\n문의답글: "+cContent
-//				;
-//		
-//	}
 
 	@Override
 	public String toString() {

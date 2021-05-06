@@ -115,7 +115,7 @@ public class MemberDAO {
 	// 아이디 중복 확인
 	public boolean overlabId(String idEmail) {
 		conn = JDBC_Connect.getConnection();
-		String sql = "SELECT * FROM MEMBERS WHERE ID_EMAIL =?";
+		String sql = JDBC_SQL.signUpIdOverlab_IdEmail();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, idEmail);

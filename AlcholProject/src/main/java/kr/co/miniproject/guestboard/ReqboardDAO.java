@@ -101,10 +101,11 @@ public class ReqboardDAO {
 		List<CommentRequestVO> crList = comDao.selectComReqAll(reqNum);
 		if (crList.size() != 0) {
 			for (CommentRequestVO crvo : crList) {
-				System.out.println("===================================");
-				System.out.println(crvo);
+				System.out.println("__ __ __ __ __ __ __ __ __ __ __ __");
+				System.out.println("	답글번호 : " + crvo.getComNum());
+				System.out.println("	답글내용 : " + crvo.getcContent());
 			}
-			System.out.println("===================================");
+			System.out.println("_______________________________");
 		} else {
 			System.out.println("아직 답변이 없습니다.");
 		}

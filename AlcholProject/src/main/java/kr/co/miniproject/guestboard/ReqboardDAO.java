@@ -14,7 +14,7 @@ import kr.co.miniproject.shopping.AlcoholVO;
 import kr.co.miniproject.users.MemberVO;
 
 public class ReqboardDAO {
-	
+
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	Scanner scanner = new Scanner(System.in);
@@ -23,10 +23,10 @@ public class ReqboardDAO {
 	public int insertReq(ReqboardVO reqVO) {
 		int result = 0;
 		try {
-		
-			//게시글 입력받도록 쓰는 insert문
+
+			// 게시글 입력받도록 쓰는 insert문
 			conn = JDBC_Connect.getConnection();
-			
+
 			String sql = JDBC_SQL.write_req();
 			pstmt = conn.prepareStatement(sql);
 
@@ -35,8 +35,8 @@ public class ReqboardDAO {
 			pstmt.setString(3, reqVO.getId_email());
 
 			result = pstmt.executeUpdate();
-			
-			if(result != 0) {
+
+			if (result != 0) {
 				System.out.println("게시글이 등록되었습니다.");
 			}
 		} catch (Exception e) {
@@ -44,14 +44,13 @@ public class ReqboardDAO {
 		} finally {
 			JDBC_Close.closeConnStmt(conn, pstmt);
 		}
-		return -1; //db오류시 다시 돌아가기
+		return -1; // db오류시 다시 돌아가기
 	}
-	
-	
-	//글 전체 리스트 보여주는거
-	//선택지 만들고
-	//req넘버 선택했을 때 댓글 
-	public List<ReqboardVO> selectAllReq(){
+
+	// 글 전체 리스트 보여주는거
+	// 선택지 만들고
+	// req넘버 선택했을 때 댓글
+	public List<ReqboardVO> selectAllReq() {
 		List<ReqboardVO> reqVOlist = null;
 		ResultSet rs = null;
 		conn = JDBC_Connect.getConnection();
@@ -59,27 +58,23 @@ public class ReqboardDAO {
 		try {
 			String sql = JDBC_SQL.showAllReq();
 			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();			
-			reqVOlist = new ArrayList<ReqboardVO>();			
-			while(rs.next()) {
-				ReqboardVO reqvo = new ReqboardVO(rs.getInt("REQ_NUM"),
-						rs.getString("TITLE"),
-						rs.getString("CONTENT"),
-						rs.getString("W_DATE"),
-						rs.getString("ID_EMAIL"));				
+			rs = pstmt.executeQuery();
+			reqVOlist = new ArrayList<ReqboardVO>();
+			while (rs.next()) {
+				ReqboardVO reqvo = new ReqboardVO(rs.getInt("REQ_NUM"), rs.getString("TITLE"), rs.getString("CONTENT"),
+						rs.getString("W_DATE"), rs.getString("ID_EMAIL"));
 				reqVOlist.add(reqvo);
-			}				
-			
+			}
+
 		} catch (Exception e) {
-			e.printStackTrace();			
-		}finally {
+			e.printStackTrace();
+		} finally {
 			JDBC_Close.closeConnStmt(conn, pstmt);
-		}		 
-		
+		}
+
 		return reqVOlist;
 	}
-	
-	
+
 	public int chgReq(ReqboardVO reqVO) {
 		int result = 0;
 		try {
@@ -100,7 +95,7 @@ public class ReqboardDAO {
 		}
 		return result;
 	}
-	
+
 	public void showReqAndCom(int reqNum) {
 		comDao = new CommentDAO();
 		List<CommentRequestVO> crList = comDao.selectComReqAll(reqNum);
@@ -114,5 +109,5 @@ public class ReqboardDAO {
 			System.out.println("아직 답변이 없습니다.");
 		}
 	}
-	
+
 }

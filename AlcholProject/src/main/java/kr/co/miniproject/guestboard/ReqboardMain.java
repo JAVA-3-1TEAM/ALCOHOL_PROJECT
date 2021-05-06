@@ -38,18 +38,28 @@ public class ReqboardMain {
 						System.out.println("답글을 보실 글 번호를 선택해주세요.");
 						int selectComment = scanner.nextInt();
 						if (reqNumList.contains(selectComment)) {
-							for(ReqboardVO vo : reqlistVO) {
-								if(vo.getReq_num() == selectComment) {
+							for (ReqboardVO vo : reqlistVO) {
+								if (vo.getReq_num() == selectComment) {
 									System.out.println(vo);
 								}
 							}
 							reqDao.showReqAndCom(selectComment);
+							System.out.println("이전 페이지로 이동하시려면 0번을 누르세요.");
+							System.out.print(">> ");
+							while (true) {
+								int back = scanner.nextInt();
+								if (back == 0) {
+									System.out.println("이전페이지로 이동합니다.");
+									break;
+								} else {
+									System.out.println("유효하지 않은 번호입니다. 다시 입력해주세요.");
+								}
+							}
 						} else {
 							System.out.println("선택하신 글 번호는 존재하지 않습니다.");
 							System.out.println("이전페이지로 이동합니다.");
 						}
-					}
-					else if(choice == 2) {
+					} else if (choice == 2) {
 						System.out.println("답글을 입력할 글 번호를 선택해주세요.");
 						int answer = scanner.nextInt();
 						while (reqNumList.contains(answer) == false) {
@@ -76,17 +86,22 @@ public class ReqboardMain {
 				}
 
 			} else if (guestAnswer == 2) {
-				System.out.println("==========문의글 작성하기==========");
-				System.out.print("제목: ");
-				String title = br.readLine();
-				System.out.print("내용 입력: ");
-				String content = br.readLine();
+				while (true) {
+					System.out.println("==========문의글 작성하기==========");
+					System.out.print("제목: ");
+					String title = br.readLine();
+					System.out.print("내용 입력: ");
+					String content = br.readLine();
+					if (title.length() == 0 || content.length() == 0) {
+						System.out.println("제목과 내용을 작성해주세요");
+					} else {
+						ReqboardVO reqVO = new ReqboardVO(title, content, idEmail);
 
-				ReqboardVO reqVO = new ReqboardVO(title, content, idEmail);
-
-				// cnt객체에 받아서 되는건지 한 번 확인해보자.
-				int cnt = reqDao.insertReq(reqVO);
-				System.out.println("확인용 sys문" + cnt);
+						// cnt객체에 받아서 되는건지 한 번 확인해보자.
+						int cnt = reqDao.insertReq(reqVO);
+						break;
+					}
+				}
 
 			} else if (guestAnswer == 3) {
 				System.out.println("메인으로 돌아갑니다. ");

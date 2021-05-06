@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import common.util.JDBC_Close;
 import common.util.JDBC_Connect;
@@ -14,6 +16,8 @@ public class MemberDAO {
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	ResultSet rs = null;
+	Date d = new Date();
+	SimpleDateFormat s = new SimpleDateFormat("YYYY");
 
 	public int insertOne(MemberVO member) {
 		int result = 0;
@@ -83,11 +87,10 @@ public class MemberDAO {
 			// Email은 메서드로 가져와서 값을 받아야함. 현재상태에서는 임의 이메일 주소 설정.
 			pstmt.setString(1, membervo.getPwd());
 			pstmt.setString(2, membervo.getId_email());
-			System.out.println(sql);
 			result = pstmt.executeUpdate();
 			if (result != 0) {
 				System.out.println("비밀번호 변경이 완료되었습니다.");
-				System.out.println("변경된 비밀번호는 : " + membervo.getPwd()+ "입니다.");
+				System.out.println("변경된 비밀번호는 : " + membervo.getPwd() + "입니다.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,6 +98,36 @@ public class MemberDAO {
 			JDBC_Close.closeConnStmt(conn, pstmt);
 		}
 		return result;
+	}
 
+	// 미성년자 확인
+	public boolean checkBirth(String birth) {
+		String chBirth = birth.substring(0, 4);
+		int cBirth = Integer.parseInt(chBirth);
+		int y = Integer.parseInt(s.format(d));
+		int age = y - cBirth + 1;
+		if (age < 20) {
+			return false;
+		}
+		return true;
+	}
+
+	// 아이디 중복 확인
+	public boolean overlabId(String idEmail) {
+		conn = JDBC_Connect.getConnection();
+		String sql = "SELECT * FROM MEMBERS WHERE ID_EMAIL =?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, idEmail);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBC_Close.closeConnStmtRs(conn, pstmt, rs);
+		}
+		return true;
 	}
 }

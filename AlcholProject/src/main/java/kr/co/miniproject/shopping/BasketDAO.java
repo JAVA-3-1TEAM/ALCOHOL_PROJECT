@@ -85,7 +85,6 @@ public class BasketDAO {
 		return basketNum;
 	}
 
-
 	// 장바구니 목록에서 제거하는 메서드
 	public int deletebasket(int alId) {
 		int delresult = 0;
@@ -109,20 +108,30 @@ public class BasketDAO {
 		int result = 0;
 		try {
 			conn = JDBC_Connect.getConnection();
-			String sql = JDBC_SQL.basket_add();
-			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, Email);
-			pstmt.setInt(2, basketaddVO.getAlId());
-			pstmt.setInt(3, basketaddVO.getCntNumber());
-
-			System.out.println(Email);
-			result = pstmt.executeUpdate();
-
+			int alId = basketaddVO.getAlId();
+			int cnt = basketaddVO.getCntNumber();
+			String sql2 = JDBC_SQL.selectBaksetAlId_AlId();
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setInt(1, alId);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				String sql3 = JDBC_SQL.updateBasketCntNum_addCnt_AlId();
+				pstmt = conn.prepareStatement(sql3);
+				pstmt.setInt(1, cnt);
+				pstmt.setInt(2, alId);
+				result += pstmt.executeUpdate();
+			} else {
+				String sql = JDBC_SQL.basket_add();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, Email);
+				pstmt.setInt(2, basketaddVO.getAlId());
+				pstmt.setInt(3, basketaddVO.getCntNumber());
+				result += pstmt.executeUpdate();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			JDBC_Close.closeConnStmt(conn, pstmt);
+			JDBC_Close.closeConnStmtRs(conn, pstmt, rs);
 		}
 		return result;
 	}
@@ -162,10 +171,10 @@ public class BasketDAO {
 			pstmt.setInt(1, orderNum);
 			pstmt.setString(2, Email);
 			check = pstmt.executeUpdate();
-			
-			List<OrdersVO> orderList= oDAO.orderList(Email, orderNum);
+
+			List<OrdersVO> orderList = oDAO.orderList(Email, orderNum);
 			oDAO.printOrderList(Email, orderList, orderNum);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

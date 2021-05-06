@@ -8,6 +8,7 @@ public class CommentVO {
 	String content; // 코멘트 내용
 	String comDate; // 답글 단 날
 	String idEmail; // 글쓴이 아이디
+	String name;
 
 	// 최초 답글 작성시 쓸 생성자
 	public CommentVO(int reqNum, String content, String idEmail) {
@@ -24,13 +25,14 @@ public class CommentVO {
 		this.content = content;
 	}
 
-	public CommentVO(int comNum, int reqNum, String content, String comDate, String idEmail) {
+	public CommentVO(int comNum, int reqNum, String content, String comDate, String idEmail, String name) {
 		super();
 		this.comNum = comNum;
 		this.reqNum = reqNum;
 		this.content = content;
 		this.comDate = comDate;
 		this.idEmail = idEmail;
+		this.name = name;
 	}
 
 	public int getComNum() {
@@ -75,7 +77,7 @@ public class CommentVO {
 
 	@Override
 	public String toString() {
-		return "번호 : " + comNum + " \n" + "내용 : " + content + " \n" + "작성시간 : " + comDate + "\n" + "작성자 : " + idEmail;
+		return comNum + "번.\n내용 : " + content + "\n작성자 : " + name + "\n작성시간 : " + comDate;
 	}
 
 }

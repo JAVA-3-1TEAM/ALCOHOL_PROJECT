@@ -110,14 +110,16 @@ public class JDBC_SQL {
 	public static String showMyReqList() {
 		return "SELECT REQ_NUM, TITLE, CONTENT, TO_CHAR(W_DATE,'YY-MM-DD') AS W_DATE, M.NAME\n"
 				+ "FROM REQBOARD R INNER JOIN MEMBERS M\n" + "    on R.ID_EMAIL = M.ID_EMAIL\n"
-				+ "WHERE M.ID_EMAIL = ?";
+				+ "WHERE M.ID_EMAIL = ? ORDER BY W_DATE DESC";
 
 	}
 
 	// 사용자가 작성한 댓글 보여주기.
 	public static String showComment_Email() {
-		return "SELECT COM_NUM, CONTENT,TO_CHAR(COM_DATE,'YY-MM-DD') AS COM_DATE, "
-				+ "ID_EMAIL, REQ_NUM FROM COMMENTS WHERE ID_EMAIL=?";
+		return "SELECT C.COM_NUM, C.CONTENT,TO_CHAR(C.COM_DATE,'YY-MM-DD') AS COM_DATE, C.ID_EMAIL, C.REQ_NUM, M.NAME\n"
+				+ "FROM COMMENTS C INNER JOIN MEMBERS M\n"
+				+ "    on C.ID_EMAIL = M.ID_EMAIL\n"
+				+ "WHERE C.ID_EMAIL=? ORDER BY COM_DATE DESC";
 	}
 
 	public static String deleteReqList() {

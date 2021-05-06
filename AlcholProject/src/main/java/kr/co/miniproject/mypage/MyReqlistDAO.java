@@ -92,15 +92,12 @@ public class MyReqlistDAO {
 				int comNum = rs.getInt("COM_NUM");
 				String content = rs.getString("CONTENT");
 				String comDate = rs.getString("COM_DATE");
+				String name = rs.getString("NAME");
 				int reqNum = rs.getInt("REQ_NUM");
-				CommentVO cmtVO = new CommentVO(comNum, reqNum, content, comDate, myEmail);
+				CommentVO cmtVO = new CommentVO(comNum, reqNum, content, comDate, myEmail,name);
 				cmtList.add(cmtVO);
 			}
-			for (CommentVO c : cmtList) {
-				System.out.println("=======================================");
-				System.out.println(c);
-			}
-			System.out.println("=======================================");
+			myReqComPrint(cmtList);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -131,11 +128,10 @@ public class MyReqlistDAO {
 		List<?> printDate = list;
 
 		for (Object l : printDate) {
-			System.out.println("=========================================================");
+			System.out.println("__________________________________");
 			System.out.println(l);
 		}
-		System.out.println("=========================================================");
-
+		System.out.println("__________________________________");
 	}
 
 	public static void chgComWrite() throws IOException {

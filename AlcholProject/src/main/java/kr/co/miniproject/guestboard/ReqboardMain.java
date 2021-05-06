@@ -85,7 +85,7 @@ public class ReqboardMain {
 
 			} else if (guestAnswer == 2) {
 				while (true) {
-					System.out.println("==========문의글 작성하기==========");
+					System.out.println("_______________ 문의글 작성하기 _______________");
 					System.out.print("제목: ");
 					System.out.println(">> ");
 					String title = br.readLine();

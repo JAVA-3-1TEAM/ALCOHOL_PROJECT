@@ -61,7 +61,7 @@ public class MyReqlistVO {
 
 	@Override
 	public String toString() {
-		return reqNum + "번. " + "제목 : "  + title + "\n"
+		return reqNum + "번. \n" + "제목 : "  + title + "\n"
 				+ "내용 : " + content + "\n"
 				+ "작성자 : " + name + "\n" 
 				+ "작성시간 : " + wDate;

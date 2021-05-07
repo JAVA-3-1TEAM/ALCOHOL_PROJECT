@@ -24,10 +24,10 @@
 $ git clone "https://github.com/JAVA-3-1TEAM/ALCOHOL_PROJECT.git"
 ```
 
-2. AlcoholMain.java 파일 실행
+2. MainPage.java 파일 실행
 
 ```
-$ AlcoholMain.java 
+$ MainPage.java 
 ```
 <br>
 
